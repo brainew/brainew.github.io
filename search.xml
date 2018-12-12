@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Sample Post]]></title>
+    <url>%2F2018%2F12%2F11%2FInfo%2Fsample%2F</url>
+    <content type="text"><![CDATA[Sample Post Sample Post]]></content>
+      <categories>
+        <category>Info</category>
+      </categories>
+      <tags>
+        <tag>Sample</tag>
+      </tags>
+  </entry>
+</search>
