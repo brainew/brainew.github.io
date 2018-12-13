@@ -330,7 +330,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://brainew.github.io/2018/12/11/Info/sample/">
+    <link itemprop="mainEntityOfPage" href="https://brainew.github.io/2018/12/11/Info/jpa_repository_grammer/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Brainew">
@@ -349,8 +349,8 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/11/Info/sample/" itemprop="url">
-                  Sample Post
+                <a class="post-title-link" href="/2018/12/11/Info/jpa_repository_grammer/" itemprop="url">
+                  JPA Repository Entity안의 List형태 Entity접근
                 </a>
               
             
@@ -393,7 +393,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-12-12 16:15:14" itemprop="dateModified" datetime="2018-12-12T16:15:14+09:00">2018-12-12</time>
+                <time title="Modified: 2018-12-13 08:59:40" itemprop="dateModified" datetime="2018-12-13T08:59:40+09:00">2018-12-13</time>
               
             
           </span>
@@ -410,7 +410,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Info/" itemprop="url" rel="index"><span itemprop="name">Info</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/JPA/" itemprop="url" rel="index"><span itemprop="name">JPA</span></a></span>
 
                 
                 
@@ -445,17 +445,19 @@
 
       
         
-          <p>Sample Post<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/11/Info/sample/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <a id="more"></a>
+<h2 id="JPA-Repository에서-Entity안의-List형태-Entity에-접근하여-조건을-거는-방법"><a href="#JPA-Repository에서-Entity안의-List형태-Entity에-접근하여-조건을-거는-방법" class="headerlink" title="JPA Repository에서 Entity안의 List형태 Entity에 접근하여 조건을 거는 방법"></a>JPA Repository에서 Entity안의 List형태 Entity에 접근하여 조건을 거는 방법</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entitry</span></span><br><span class="line"><span class="meta">@Data</span> <span class="comment">//lombok</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="meta">@GeneratedValue</span>( strategy = GenerationType.IDENTITY)</span><br><span class="line">	<span class="keyword">private</span> Long studentId;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String studentName;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> studentAge;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> enable = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@OneToMany</span>(fetch = FetchType.EAGER, cascade = CascadeType.ALL)</span><br><span class="line">	<span class="meta">@JoinColumn</span>(name = <span class="string">"studentId"</span>)</span><br><span class="line">	List&lt;Course&gt; courses = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entitry</span></span><br><span class="line"><span class="meta">@Data</span> <span class="comment">//lombok</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Course</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="meta">@GeneratedValue</span>( strategy = GenerationType.IDENTITY)</span><br><span class="line">	<span class="keyword">private</span> Long courseId;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String courseName;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> enable = <span class="keyword">true</span>;	</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StudentRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Student</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">	<span class="function">Student <span class="title">findByCourses_CourseId</span><span class="params">(Long courseId)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>IDE에서 자동완성 기능을 사용할 때 위의 문법은 자동완성에는 표시되지 않는다.</code></p>
+<p><code>하지만 Entity간의 접근은 &#39;_&#39;로 구분되어 표현이 가능하고 해당 Entitry에 접근하는 것에도 문제가 없다.</code></p>
+<p><code>나중에는 고민하지 말고 쓰자!</code></p>
+
+          
         
       
-    </p></div>
+    </div>
 
     
 

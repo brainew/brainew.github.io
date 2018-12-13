@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Sample Post]]></title>
-    <url>%2F2018%2F12%2F11%2FInfo%2Fsample%2F</url>
-    <content type="text"><![CDATA[Sample Post Sample Post]]></content>
+    <title><![CDATA[JPA Repository Entity안의 List형태 Entity접근]]></title>
+    <url>%2F2018%2F12%2F11%2FInfo%2Fjpa_repository_grammer%2F</url>
+    <content type="text"><![CDATA[JPA Repository에서 Entity안의 List형태 Entity에 접근하여 조건을 거는 방법12345678910111213141516171819@Entitry@Data //lombokpublic class Student &#123; @Id @GeneratedValue( strategy = GenerationType.IDENTITY) private Long studentId; private String studentName; private int studentAge; private boolean enable = true; @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @JoinColumn(name = "studentId") List&lt;Course&gt; courses = new ArrayList&lt;&gt;();&#125; 12345678910111213@Entitry@Data //lombokpublic class Course &#123; @Id @GeneratedValue( strategy = GenerationType.IDENTITY) private Long courseId; private String courseName; private boolean enable = true; &#125; 1234@Repositorypublic interface StudentRepository extends JpaRepository&lt;Student, Long&gt; &#123; Student findByCourses_CourseId(Long courseId);&#125; IDE에서 자동완성 기능을 사용할 때 위의 문법은 자동완성에는 표시되지 않는다. 하지만 Entity간의 접근은 &#39;_&#39;로 구분되어 표현이 가능하고 해당 Entitry에 접근하는 것에도 문제가 없다. 나중에는 고민하지 말고 쓰자!]]></content>
       <categories>
-        <category>Info</category>
+        <category>JPA</category>
       </categories>
       <tags>
-        <tag>Sample</tag>
+        <tag>JPA</tag>
       </tags>
   </entry>
 </search>
