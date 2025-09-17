@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>브레인의 기술 블로그</title>
+  
+  <subtitle>AI 시대를 살아가는 백엔드/인프라 개발자의 성장 기록</subtitle>
+  <link href="https://brainew.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://brainew.github.io/"/>
+  <updated>2025-09-17T00:51:31.019Z</updated>
+  <id>https://brainew.github.io/</id>
+  
+  <author>
+    <name>brainew</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>백엔드 개발자의 Kubernetes 마스터 플랜 (CKA 취득 목표)</title>
+    <link href="https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/"/>
+    <id>https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/</id>
+    <published>2025-09-17T01:00:00.000Z</published>
+    <updated>2025-09-17T00:51:31.019Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;8주 만에 CKA 취득하고 실무에서 바로 써먹을 수 있는 Kubernetes 학습 로드맵&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;🎯-목표-설정&quot;&gt;&lt;a href=&quot;#🎯-목표-설정&quot; class=&quot;headerlink&quot; title=&quot;🎯 목표 설정&quot;&gt;&lt;/a&gt;🎯 목표 설정&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;최종 목표:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;8주 내 CKA (Certified Kubernetes Administrator) 취득&lt;/li&gt;
+&lt;li&gt;실무에서 바로 사용할 수 있는 K8s 운영 능력 확보&lt;/li&gt;
+&lt;li&gt;연봉 협상에서 활용할 수 있는 구체적 스킬셋 완성&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;투자 비용:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CKA 시험비: $395 (약 50만원)&lt;/li&gt;
+&lt;li&gt;학습 리소스: 약 10만원&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;예상 ROI&lt;/strong&gt;: 연봉 1,000만원 이상 상승 → 1,600% ROI&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="Kubernetes" scheme="https://brainew.github.io/categories/Kubernetes/"/>
+    
+    <category term="DevOps" scheme="https://brainew.github.io/categories/Kubernetes/DevOps/"/>
+    
+    <category term="Learning" scheme="https://brainew.github.io/categories/Kubernetes/DevOps/Learning/"/>
+    
+    
+    <category term="백엔드개발자" scheme="https://brainew.github.io/tags/%EB%B0%B1%EC%97%94%EB%93%9C%EA%B0%9C%EB%B0%9C%EC%9E%90/"/>
+    
+    <category term="Kubernetes" scheme="https://brainew.github.io/tags/Kubernetes/"/>
+    
+    <category term="CKA" scheme="https://brainew.github.io/tags/CKA/"/>
+    
+    <category term="학습계획" scheme="https://brainew.github.io/tags/%ED%95%99%EC%8A%B5%EA%B3%84%ED%9A%8D/"/>
+    
+    <category term="인프라" scheme="https://brainew.github.io/tags/%EC%9D%B8%ED%94%84%EB%9D%BC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://brainew.github.io/2025/09/17/hello-world/"/>
+    <id>https://brainew.github.io/2025/09/17/hello-world/</id>
+    <published>2025-09-17T00:49:36.409Z</published>
+    <updated>2025-09-17T00:49:36.409Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>AI 시대, 백엔드 개발자가 살아남는 법</title>
+    <link href="https://brainew.github.io/2025/09/17/ai-era-backend-developer-survival/"/>
+    <id>https://brainew.github.io/2025/09/17/ai-era-backend-developer-survival/</id>
+    <published>2025-09-17T00:48:00.000Z</published>
+    <updated>2025-09-17T00:52:32.097Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;백엔드&amp;#x2F;인프라 개발자가 AI 위협을 분석하고 대응 전략을 세운 이야기&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;🚨-위기-인식-AI가-내-일을-가져갈까&quot;&gt;&lt;a href=&quot;#🚨-위기-인식-AI가-내-일을-가져갈까&quot; class=&quot;headerlink&quot; title=&quot;🚨 위기 인식: AI가 내 일을 가져갈까?&quot;&gt;&lt;/a&gt;🚨 위기 인식: AI가 내 일을 가져갈까?&lt;/h2&gt;&lt;p&gt;최근 ChatGPT, GitHub Copilot 등 AI 도구들이 코드를 척척 생성하는 모습을 보며 불안했습니다.&lt;br&gt;특히 제가 주로 하던 업무들이 AI로 대체될 가능성이 높아 보였거든요.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AI가 쉽게 대체할 수 있는 내 업무들:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;단순 CRUD API 개발&lt;/li&gt;
+&lt;li&gt;기본적인 DB 스키마 설계  &lt;/li&gt;
+&lt;li&gt;반복적인 배포 스크립트 작성&lt;/li&gt;
+&lt;li&gt;기본 모니터링 설정&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="Career" scheme="https://brainew.github.io/categories/Career/"/>
+    
+    <category term="Backend" scheme="https://brainew.github.io/categories/Career/Backend/"/>
+    
+    <category term="AI" scheme="https://brainew.github.io/categories/Career/Backend/AI/"/>
+    
+    
+    <category term="백엔드개발자" scheme="https://brainew.github.io/tags/%EB%B0%B1%EC%97%94%EB%93%9C%EA%B0%9C%EB%B0%9C%EC%9E%90/"/>
+    
+    <category term="AI시대" scheme="https://brainew.github.io/tags/AI%EC%8B%9C%EB%8C%80/"/>
+    
+    <category term="커리어전환" scheme="https://brainew.github.io/tags/%EC%BB%A4%EB%A6%AC%EC%96%B4%EC%A0%84%ED%99%98/"/>
+    
+    <category term="DevOps" scheme="https://brainew.github.io/tags/DevOps/"/>
+    
+    <category term="생존전략" scheme="https://brainew.github.io/tags/%EC%83%9D%EC%A1%B4%EC%A0%84%EB%9E%B5/"/>
+    
+  </entry>
+  
+</feed>
