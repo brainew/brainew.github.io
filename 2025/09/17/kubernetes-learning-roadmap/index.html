@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"brainew.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="8주 만에 CKA 취득하고 실무에서 바로 써먹을 수 있는 Kubernetes 학습 로드맵  🎯 목표 설정최종 목표:  8주 내 CKA (Certified Kubernetes Administrator) 취득 실무에서 바로 사용할 수 있는 K8s 운영 능력 확보 연봉 협상에서 활용할 수 있는 구체적 스킬셋 완성  투자 비용:  CKA 시험비: $395 (약">
+    <meta name="description" content="체계적인 Kubernetes 학습으로 CKA 취득하고 실무에서 바로 써먹을 수 있는 로드맵  🎯 목표 설정최종 목표:  8주 내 CKA (Certified Kubernetes Administrator) 취득 실무에서 바로 사용할 수 있는 K8s 운영 능력 확보 클라우드 네이티브 아키텍처 설계 역량 강화  학습 접근법:  이론 30% + 실습 70%의 h">
 <meta property="og:type" content="article">
 <meta property="og:title" content="백엔드 개발자의 Kubernetes 마스터 플랜 (CKA 취득 목표)">
 <meta property="og:url" content="https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/index.html">
 <meta property="og:site_name" content="브레인의 기술 블로그">
-<meta property="og:description" content="8주 만에 CKA 취득하고 실무에서 바로 써먹을 수 있는 Kubernetes 학습 로드맵  🎯 목표 설정최종 목표:  8주 내 CKA (Certified Kubernetes Administrator) 취득 실무에서 바로 사용할 수 있는 K8s 운영 능력 확보 연봉 협상에서 활용할 수 있는 구체적 스킬셋 완성  투자 비용:  CKA 시험비: $395 (약">
+<meta property="og:description" content="체계적인 Kubernetes 학습으로 CKA 취득하고 실무에서 바로 써먹을 수 있는 로드맵  🎯 목표 설정최종 목표:  8주 내 CKA (Certified Kubernetes Administrator) 취득 실무에서 바로 사용할 수 있는 K8s 운영 능력 확보 클라우드 네이티브 아키텍처 설계 역량 강화  학습 접근법:  이론 30% + 실습 70%의 h">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2025-09-17T01:00:00.000Z">
-<meta property="article:modified_time" content="2025-09-17T00:51:31.019Z">
+<meta property="article:modified_time" content="2025-09-17T00:58:47.618Z">
 <meta property="article:author" content="brainew">
 <meta property="article:tag" content="백엔드개발자">
 <meta property="article:tag" content="Kubernetes">
@@ -127,7 +127,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%AF-%EB%AA%A9%ED%91%9C-%EC%84%A4%EC%A0%95"><span class="nav-number">1.</span> <span class="nav-text">🎯 목표 설정</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%85-8%EC%A3%BC-%ED%95%99%EC%8A%B5-%EA%B3%84%ED%9A%8D"><span class="nav-number">2.</span> <span class="nav-text">📅 8주 학습 계획</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-1-2-%EA%B8%B0%EC%B4%88-%EB%8B%A4%EC%A7%80%EA%B8%B0"><span class="nav-number">2.1.</span> <span class="nav-text">Week 1-2: 기초 다지기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-4-%EA%B3%A0%EA%B8%89-%EA%B8%B0%EB%8A%A5-%EC%A0%95%EB%B3%B5"><span class="nav-number">2.2.</span> <span class="nav-text">Week 3-4: 고급 기능 정복</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-5-6-%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0-%EC%9A%B4%EC%98%81-%EB%A7%88%EC%8A%A4%ED%84%B0"><span class="nav-number">2.3.</span> <span class="nav-text">Week 5-6: 클러스터 운영 마스터</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-7-8-CKA-%EC%8B%9C%ED%97%98-%EC%A7%91%EC%A4%91-%EC%A4%80%EB%B9%84"><span class="nav-number">2.4.</span> <span class="nav-text">Week 7-8: CKA 시험 집중 준비</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9A-%ED%95%99%EC%8A%B5-%EB%A6%AC%EC%86%8C%EC%8A%A4-%EC%B6%94%EC%B2%9C"><span class="nav-number">3.</span> <span class="nav-text">📚 학습 리소스 추천</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%ED%95%84%EC%88%98-%EC%9E%90%EB%A3%8C-%EB%AC%B4%EB%A3%8C"><span class="nav-number">3.1.</span> <span class="nav-text">필수 자료 (무료)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9C%A0%EB%A3%8C-%EA%B0%95%EC%9D%98-%ED%88%AC%EC%9E%90-%EA%B0%80%EC%B9%98-%EC%9E%88%EC%9D%8C"><span class="nav-number">3.2.</span> <span class="nav-text">유료 강의 (투자 가치 있음)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%8B%A4%EC%8A%B5-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1"><span class="nav-number">3.3.</span> <span class="nav-text">실습 환경 구성</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%85-%EC%A3%BC%EA%B0%84-%EC%84%B1%EA%B3%BC-%EC%B8%A1%EC%A0%95"><span class="nav-number">4.</span> <span class="nav-text">✅ 주간 성과 측정</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-1-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8"><span class="nav-number">4.1.</span> <span class="nav-text">Week 1 체크리스트</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-2-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8"><span class="nav-number">4.2.</span> <span class="nav-text">Week 2 체크리스트</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-4-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8"><span class="nav-number">4.3.</span> <span class="nav-text">Week 3-4 체크리스트</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-5-6-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8"><span class="nav-number">4.4.</span> <span class="nav-text">Week 5-6 체크리스트</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-7-8-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8"><span class="nav-number">4.5.</span> <span class="nav-text">Week 7-8 체크리스트</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%AF-%EC%8B%A4%EB%AC%B4-%EC%A0%81%EC%9A%A9-%EC%A0%84%EB%9E%B5"><span class="nav-number">5.</span> <span class="nav-text">🎯 실무 적용 전략</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%82%AC%EB%82%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%A0%9C%EC%95%88"><span class="nav-number">5.1.</span> <span class="nav-text">사내 프로젝트 제안</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%92%B0-%ED%88%AC%EC%9E%90-%EB%8C%80%EB%B9%84-%EC%88%98%EC%9D%B5-%EB%B6%84%EC%84%9D"><span class="nav-number">6.</span> <span class="nav-text">💰 투자 대비 수익 분석</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%ED%95%99%EC%8A%B5-%ED%88%AC%EC%9E%90-%EB%B9%84%EC%9A%A9"><span class="nav-number">6.1.</span> <span class="nav-text">학습 투자 비용</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%98%88%EC%83%81-%EC%88%98%EC%9D%B5"><span class="nav-number">6.2.</span> <span class="nav-text">예상 수익</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%9A%80-%EC%84%B1%EA%B3%B5%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%8C%81"><span class="nav-number">7.</span> <span class="nav-text">🚀 성공을 위한 팁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%ED%95%99%EC%8A%B5-%ED%9A%A8%EC%9C%A8%EC%84%B1-%EA%B7%B9%EB%8C%80%ED%99%94"><span class="nav-number">7.1.</span> <span class="nav-text">학습 효율성 극대화</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%8B%9C%ED%97%98-%ED%95%A9%EA%B2%A9-%EC%A0%84%EB%9E%B5"><span class="nav-number">7.2.</span> <span class="nav-text">시험 합격 전략</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%8B%A4%EB%AC%B4-%EC%A0%81%EC%9A%A9-%ED%8F%AC%EC%9D%B8%ED%8A%B8"><span class="nav-number">7.3.</span> <span class="nav-text">실무 적용 포인트</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%88-%EB%8B%A4%EC%9D%8C-%EB%8B%A8%EA%B3%84-%EA%B3%84%ED%9A%8D"><span class="nav-number">8.</span> <span class="nav-text">📈 다음 단계 계획</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CKA-%EC%B7%A8%EB%93%9D-%ED%9B%84-%EB%A1%9C%EB%93%9C%EB%A7%B5"><span class="nav-number">8.1.</span> <span class="nav-text">CKA 취득 후 로드맵</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%AF-%EB%AA%A9%ED%91%9C-%EC%84%A4%EC%A0%95"><span class="nav-number">1.</span> <span class="nav-text">🎯 목표 설정</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%85-8%EC%A3%BC-%ED%95%99%EC%8A%B5-%EA%B3%84%ED%9A%8D"><span class="nav-number">2.</span> <span class="nav-text">📅 8주 학습 계획</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-1-2-%EA%B8%B0%EC%B4%88-%EB%8B%A4%EC%A7%80%EA%B8%B0"><span class="nav-number">2.1.</span> <span class="nav-text">Week 1-2: 기초 다지기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-4-%EA%B3%A0%EA%B8%89-%EA%B8%B0%EB%8A%A5-%EC%A0%95%EB%B3%B5"><span class="nav-number">2.2.</span> <span class="nav-text">Week 3-4: 고급 기능 정복</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-5-6-%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0-%EC%9A%B4%EC%98%81-%EB%A7%88%EC%8A%A4%ED%84%B0"><span class="nav-number">2.3.</span> <span class="nav-text">Week 5-6: 클러스터 운영 마스터</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-7-8-CKA-%EC%8B%9C%ED%97%98-%EC%A7%91%EC%A4%91-%EC%A4%80%EB%B9%84"><span class="nav-number">2.4.</span> <span class="nav-text">Week 7-8: CKA 시험 집중 준비</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9A-%ED%95%99%EC%8A%B5-%EB%A6%AC%EC%86%8C%EC%8A%A4-%EC%B6%94%EC%B2%9C"><span class="nav-number">3.</span> <span class="nav-text">📚 학습 리소스 추천</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%ED%95%84%EC%88%98-%EC%9E%90%EB%A3%8C-%EB%AC%B4%EB%A3%8C"><span class="nav-number">3.1.</span> <span class="nav-text">필수 자료 (무료)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9C%A0%EB%A3%8C-%EA%B0%95%EC%9D%98-%ED%88%AC%EC%9E%90-%EA%B0%80%EC%B9%98-%EC%9E%88%EC%9D%8C"><span class="nav-number">3.2.</span> <span class="nav-text">유료 강의 (투자 가치 있음)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%8B%A4%EC%8A%B5-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%84%B1"><span class="nav-number">3.3.</span> <span class="nav-text">실습 환경 구성</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%9C%85-%EC%A3%BC%EA%B0%84-%EC%84%B1%EA%B3%BC-%EC%B8%A1%EC%A0%95"><span class="nav-number">4.</span> <span class="nav-text">✅ 주간 성과 측정</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-1-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8"><span class="nav-number">4.1.</span> <span class="nav-text">Week 1 체크리스트</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-2-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8"><span class="nav-number">4.2.</span> <span class="nav-text">Week 2 체크리스트</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-3-4-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8"><span class="nav-number">4.3.</span> <span class="nav-text">Week 3-4 체크리스트</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-5-6-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8"><span class="nav-number">4.4.</span> <span class="nav-text">Week 5-6 체크리스트</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Week-7-8-%EC%B2%B4%ED%81%AC%EB%A6%AC%EC%8A%A4%ED%8A%B8"><span class="nav-number">4.5.</span> <span class="nav-text">Week 7-8 체크리스트</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%AF-%EC%8B%A4%EB%AC%B4-%EC%A0%81%EC%9A%A9-%EC%A0%84%EB%9E%B5"><span class="nav-number">5.</span> <span class="nav-text">🎯 실무 적용 전략</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%82%AC%EB%82%B4-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%A0%9C%EC%95%88"><span class="nav-number">5.1.</span> <span class="nav-text">사내 프로젝트 제안</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%9A%80-%EC%84%B1%EA%B3%B5%EC%9D%84-%EC%9C%84%ED%95%9C-%ED%8C%81"><span class="nav-number">6.</span> <span class="nav-text">🚀 성공을 위한 팁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%ED%95%99%EC%8A%B5-%ED%9A%A8%EC%9C%A8%EC%84%B1-%EA%B7%B9%EB%8C%80%ED%99%94"><span class="nav-number">6.1.</span> <span class="nav-text">학습 효율성 극대화</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%8B%9C%ED%97%98-%ED%95%A9%EA%B2%A9-%EC%A0%84%EB%9E%B5"><span class="nav-number">6.2.</span> <span class="nav-text">시험 합격 전략</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%8B%A4%EB%AC%B4-%EC%A0%81%EC%9A%A9-%ED%8F%AC%EC%9D%B8%ED%8A%B8"><span class="nav-number">6.3.</span> <span class="nav-text">실무 적용 포인트</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%88-%EB%8B%A4%EC%9D%8C-%EB%8B%A8%EA%B3%84-%EA%B3%84%ED%9A%8D"><span class="nav-number">7.</span> <span class="nav-text">📈 다음 단계 계획</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CKA-%EC%B7%A8%EB%93%9D-%ED%9B%84-%EB%A1%9C%EB%93%9C%EB%A7%B5"><span class="nav-number">7.1.</span> <span class="nav-text">CKA 취득 후 로드맵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9E%A5%EA%B8%B0%EC%A0%81-%EC%BB%A4%EB%A6%AC%EC%96%B4-%EB%B0%9C%EC%A0%84"><span class="nav-number">7.2.</span> <span class="nav-text">장기적 커리어 발전</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -140,7 +140,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -206,7 +206,7 @@
       <span class="post-meta-item-text">작성일</span>
       
 
-      <time title="Post created: 2025-09-17 10:00:00 / Updated at: 09:51:31" itemprop="dateCreated datePublished" datetime="2025-09-17T10:00:00+09:00">2025-09-17</time>
+      <time title="Post created: 2025-09-17 10:00:00 / Updated at: 09:58:47" itemprop="dateCreated datePublished" datetime="2025-09-17T10:00:00+09:00">2025-09-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -236,19 +236,19 @@
     
     
     <div class="post-body" itemprop="articleBody"><blockquote>
-<p>8주 만에 CKA 취득하고 실무에서 바로 써먹을 수 있는 Kubernetes 학습 로드맵</p>
+<p>체계적인 Kubernetes 학습으로 CKA 취득하고 실무에서 바로 써먹을 수 있는 로드맵</p>
 </blockquote>
 <h2 id="🎯-목표-설정"><a href="#🎯-목표-설정" class="headerlink" title="🎯 목표 설정"></a>🎯 목표 설정</h2><p><strong>최종 목표:</strong></p>
 <ul>
 <li>8주 내 CKA (Certified Kubernetes Administrator) 취득</li>
 <li>실무에서 바로 사용할 수 있는 K8s 운영 능력 확보</li>
-<li>연봉 협상에서 활용할 수 있는 구체적 스킬셋 완성</li>
+<li>클라우드 네이티브 아키텍처 설계 역량 강화</li>
 </ul>
-<p><strong>투자 비용:</strong></p>
+<p><strong>학습 접근법:</strong></p>
 <ul>
-<li>CKA 시험비: $395 (약 50만원)</li>
-<li>학습 리소스: 약 10만원</li>
-<li><strong>예상 ROI</strong>: 연봉 1,000만원 이상 상승 → 1,600% ROI</li>
+<li>이론 30% + 실습 70%의 hands-on 중심 학습</li>
+<li>실제 운영 시나리오 기반 문제 해결</li>
+<li>커뮤니티 활동을 통한 지식 공유</li>
 </ul>
 <span id="more"></span>
 
@@ -305,11 +305,11 @@
 <li><strong>GitHub 실습 레포</strong>: 직접 만든 예제들</li>
 </ol>
 <h3 id="유료-강의-투자-가치-있음"><a href="#유료-강의-투자-가치-있음" class="headerlink" title="유료 강의 (투자 가치 있음)"></a>유료 강의 (투자 가치 있음)</h3><ol>
-<li><strong>Udemy - Mumshad Mannambeth</strong>: “CKA with Practice Tests” ($20)</li>
-<li><strong>A Cloud Guru</strong>: “Certified Kubernetes Administrator” ($29&#x2F;월)</li>
-<li><strong>Linux Foundation</strong>: 공식 CKA 교육과정 ($299)</li>
+<li><strong>Udemy - Mumshad Mannambeth</strong>: “CKA with Practice Tests”</li>
+<li><strong>A Cloud Guru</strong>: “Certified Kubernetes Administrator”</li>
+<li><strong>Linux Foundation</strong>: 공식 CKA 교육과정</li>
 </ol>
-<h3 id="실습-환경-구성"><a href="#실습-환경-구성" class="headerlink" title="실습 환경 구성"></a>실습 환경 구성</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 로컬 환경 (개발/학습용)</span></span><br><span class="line">kind create cluster --config=multi-node-config.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 클라우드 환경 (실전 연습용)  </span></span><br><span class="line"><span class="comment"># AWS EKS 또는 GCP GKE 사용 (월 $50 예산)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 가상머신 환경 (시험 환경과 동일)</span></span><br><span class="line"><span class="comment"># VirtualBox + Ubuntu로 3노드 클러스터 구성</span></span><br></pre></td></tr></table></figure>
+<h3 id="실습-환경-구성"><a href="#실습-환경-구성" class="headerlink" title="실습 환경 구성"></a>실습 환경 구성</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 로컬 환경 (개발/학습용)</span></span><br><span class="line">kind create cluster --config=multi-node-config.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 클라우드 환경 (실전 연습용)  </span></span><br><span class="line"><span class="comment"># AWS EKS, GCP GKE, Azure AKS 중 선택</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 가상머신 환경 (시험 환경과 동일)</span></span><br><span class="line"><span class="comment"># VirtualBox + Ubuntu로 3노드 클러스터 구성</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="✅-주간-성과-측정"><a href="#✅-주간-성과-측정" class="headerlink" title="✅ 주간 성과 측정"></a>✅ 주간 성과 측정</h2><h3 id="Week-1-체크리스트"><a href="#Week-1-체크리스트" class="headerlink" title="Week 1 체크리스트"></a>Week 1 체크리스트</h3><ul>
 <li><input disabled="" type="checkbox"> kubectl 기본 명령어 50개 암기</li>
@@ -351,18 +351,6 @@
 <p><strong>3단계: CI&#x2F;CD 파이프라인 구축</strong></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .github/workflows/deploy.yml</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">Kubernetes</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">main</span>]</span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v3</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">Push</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          docker build -t myregistry/spring-app:$&#123;&#123; github.sha &#125;&#125; .</span></span><br><span class="line"><span class="string">          docker push myregistry/spring-app:$&#123;&#123; github.sha &#125;&#125;</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">K8s</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          kubectl set image deployment/spring-app app=myregistry/spring-app:$&#123;&#123; github.sha &#125;&#125;</span></span><br><span class="line"><span class="string">          kubectl rollout status deployment/spring-app</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="💰-투자-대비-수익-분석"><a href="#💰-투자-대비-수익-분석" class="headerlink" title="💰 투자 대비 수익 분석"></a>💰 투자 대비 수익 분석</h2><h3 id="학습-투자-비용"><a href="#학습-투자-비용" class="headerlink" title="학습 투자 비용"></a>학습 투자 비용</h3><ul>
-<li>CKA 시험비: 50만원</li>
-<li>강의 및 자료: 10만원</li>
-<li>클라우드 실습비: 20만원 (2개월)</li>
-<li><strong>총 투자</strong>: 80만원</li>
-</ul>
-<h3 id="예상-수익"><a href="#예상-수익" class="headerlink" title="예상 수익"></a>예상 수익</h3><ul>
-<li><strong>즉시 효과</strong>: 이력서 경쟁력 상승</li>
-<li><strong>6개월 후</strong>: 연봉 1,000만원 상승</li>
-<li><strong>12개월 후</strong>: 플랫폼 엔지니어 전환 (연봉 1,500만원 상승)</li>
-<li><strong>ROI</strong>: 1,875% (첫 해 기준)</li>
-</ul>
 <h2 id="🚀-성공을-위한-팁"><a href="#🚀-성공을-위한-팁" class="headerlink" title="🚀 성공을 위한 팁"></a>🚀 성공을 위한 팁</h2><h3 id="학습-효율성-극대화"><a href="#학습-효율성-극대화" class="headerlink" title="학습 효율성 극대화"></a>학습 효율성 극대화</h3><ol>
 <li><strong>매일 실습</strong>: 이론 30% + 실습 70%</li>
 <li><strong>문제 해결 중심</strong>: 에러를 만나고 해결하는 경험</li>
@@ -382,13 +370,19 @@
 <li><strong>문서화</strong>: 운영 가이드 작성</li>
 </ol>
 <h2 id="📈-다음-단계-계획"><a href="#📈-다음-단계-계획" class="headerlink" title="📈 다음 단계 계획"></a>📈 다음 단계 계획</h2><h3 id="CKA-취득-후-로드맵"><a href="#CKA-취득-후-로드맵" class="headerlink" title="CKA 취득 후 로드맵"></a>CKA 취득 후 로드맵</h3><ol>
-<li><strong>CKAD (Developer)</strong> 취득 (추가 2개월)</li>
-<li><strong>CKS (Security)</strong> 취득 (추가 3개월)  </li>
-<li><strong>AWS EKS 전문가</strong> 과정</li>
-<li><strong>기술 리드</strong> 역할 도전</li>
+<li><strong>CKAD (Developer)</strong> 취득</li>
+<li><strong>CKS (Security)</strong> 취득</li>
+<li><strong>클라우드별 전문 자격증</strong> (AWS EKS, GCP GKE)</li>
+<li><strong>기술 리더십</strong> 역할 도전</li>
 </ol>
+<h3 id="장기적-커리어-발전"><a href="#장기적-커리어-발전" class="headerlink" title="장기적 커리어 발전"></a>장기적 커리어 발전</h3><ul>
+<li><strong>플랫폼 엔지니어</strong>: 개발자 경험 플랫폼 구축</li>
+<li><strong>클라우드 아키텍트</strong>: 멀티클라우드 전략 수립</li>
+<li><strong>기술 리드</strong>: 팀 기술 방향성 결정</li>
+<li><strong>DevOps 컨설턴트</strong>: 조직의 DevOps 문화 구축</li>
+</ul>
 <hr>
-<p><strong>시작일</strong>: 오늘 (2025년 9월 17일)<br><strong>목표일</strong>: 11월 12일 (CKA 취득)<br><strong>다음 포스트</strong>: “Kubernetes 실습 환경 구축하기”</p>
+<p><strong>시작일</strong>: 오늘부터<br><strong>목표일</strong>: 8주 후 CKA 취득<br><strong>다음 포스트</strong>: “Kubernetes 실습 환경 구축하기”</p>
 <p><em>함께 Kubernetes를 정복해봅시다! 궁금한 점이나 함께 스터디하고 싶으시면 댓글로 연락주세요.</em></p>
 
     </div>
@@ -410,8 +404,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2025/09/17/hello-world/" rel="prev" title="Hello World">
-                  <i class="fa fa-angle-left"></i> Hello World
+                <a href="/2025/09/17/ai-era-backend-developer-survival/" rel="prev" title="AI 시대, 백엔드 개발자가 살아남는 법">
+                  <i class="fa fa-angle-left"></i> AI 시대, 백엔드 개발자가 살아남는 법
                 </a>
             </div>
             <div class="post-nav-item">

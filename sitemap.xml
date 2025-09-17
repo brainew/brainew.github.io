@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://brainew.github.io/2025/09/17/ai-era-backend-developer-survival/</loc>
-    
-    <lastmod>2025-09-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/</loc>
     
     <lastmod>2025-09-17</lastmod>
@@ -20,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://brainew.github.io/2025/09/17/hello-world/</loc>
+    <loc>https://brainew.github.io/2025/09/17/ai-era-backend-developer-survival/</loc>
     
     <lastmod>2025-09-17</lastmod>
     

@@ -6,7 +6,7 @@
   <link href="https://brainew.github.io/atom.xml" rel="self"/>
   
   <link href="https://brainew.github.io/"/>
-  <updated>2025-09-17T00:51:31.019Z</updated>
+  <updated>2025-09-17T00:58:47.618Z</updated>
   <id>https://brainew.github.io/</id>
   
   <author>
@@ -21,23 +21,23 @@
     <link href="https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/"/>
     <id>https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/</id>
     <published>2025-09-17T01:00:00.000Z</published>
-    <updated>2025-09-17T00:51:31.019Z</updated>
+    <updated>2025-09-17T00:58:47.618Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;8주 만에 CKA 취득하고 실무에서 바로 써먹을 수 있는 Kubernetes 학습 로드맵&lt;/p&gt;
+&lt;p&gt;체계적인 Kubernetes 학습으로 CKA 취득하고 실무에서 바로 써먹을 수 있는 로드맵&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&quot;🎯-목표-설정&quot;&gt;&lt;a href=&quot;#🎯-목표-설정&quot; class=&quot;headerlink&quot; title=&quot;🎯 목표 설정&quot;&gt;&lt;/a&gt;🎯 목표 설정&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;최종 목표:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;8주 내 CKA (Certified Kubernetes Administrator) 취득&lt;/li&gt;
 &lt;li&gt;실무에서 바로 사용할 수 있는 K8s 운영 능력 확보&lt;/li&gt;
-&lt;li&gt;연봉 협상에서 활용할 수 있는 구체적 스킬셋 완성&lt;/li&gt;
+&lt;li&gt;클라우드 네이티브 아키텍처 설계 역량 강화&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;투자 비용:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;학습 접근법:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;CKA 시험비: $395 (약 50만원)&lt;/li&gt;
-&lt;li&gt;학습 리소스: 약 10만원&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;예상 ROI&lt;/strong&gt;: 연봉 1,000만원 이상 상승 → 1,600% ROI&lt;/li&gt;
+&lt;li&gt;이론 30% + 실습 70%의 hands-on 중심 학습&lt;/li&gt;
+&lt;li&gt;실제 운영 시나리오 기반 문제 해결&lt;/li&gt;
+&lt;li&gt;커뮤니티 활동을 통한 지식 공유&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
@@ -62,39 +62,18 @@
   </entry>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://brainew.github.io/2025/09/17/hello-world/"/>
-    <id>https://brainew.github.io/2025/09/17/hello-world/</id>
-    <published>2025-09-17T00:49:36.409Z</published>
-    <updated>2025-09-17T00:49:36.409Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>AI 시대, 백엔드 개발자가 살아남는 법</title>
     <link href="https://brainew.github.io/2025/09/17/ai-era-backend-developer-survival/"/>
     <id>https://brainew.github.io/2025/09/17/ai-era-backend-developer-survival/</id>
     <published>2025-09-17T00:48:00.000Z</published>
-    <updated>2025-09-17T00:52:32.097Z</updated>
+    <updated>2025-09-17T00:57:50.364Z</updated>
     
     
     <summary type="html">&lt;blockquote&gt;
 &lt;p&gt;백엔드&amp;#x2F;인프라 개발자가 AI 위협을 분석하고 대응 전략을 세운 이야기&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;🚨-위기-인식-AI가-내-일을-가져갈까&quot;&gt;&lt;a href=&quot;#🚨-위기-인식-AI가-내-일을-가져갈까&quot; class=&quot;headerlink&quot; title=&quot;🚨 위기 인식: AI가 내 일을 가져갈까?&quot;&gt;&lt;/a&gt;🚨 위기 인식: AI가 내 일을 가져갈까?&lt;/h2&gt;&lt;p&gt;최근 ChatGPT, GitHub Copilot 등 AI 도구들이 코드를 척척 생성하는 모습을 보며 불안했습니다.&lt;br&gt;특히 제가 주로 하던 업무들이 AI로 대체될 가능성이 높아 보였거든요.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;AI가 쉽게 대체할 수 있는 내 업무들:&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;🚨-위기-인식-AI가-내-일을-가져갈까&quot;&gt;&lt;a href=&quot;#🚨-위기-인식-AI가-내-일을-가져갈까&quot; class=&quot;headerlink&quot; title=&quot;🚨 위기 인식: AI가 내 일을 가져갈까?&quot;&gt;&lt;/a&gt;🚨 위기 인식: AI가 내 일을 가져갈까?&lt;/h2&gt;&lt;p&gt;최근 ChatGPT, GitHub Copilot 등 AI 도구들이 코드를 척척 생성하는 모습을 보며 많은 개발자들이 불안해하고 있습니다.&lt;br&gt;특히 백엔드 개발자들이 주로 하던 업무들이 AI로 대체될 가능성이 높아 보입니다.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AI가 쉽게 대체할 수 있는 업무들:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;단순 CRUD API 개발&lt;/li&gt;
 &lt;li&gt;기본적인 DB 스키마 설계  &lt;/li&gt;
