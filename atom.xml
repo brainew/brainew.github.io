@@ -45,6 +45,92 @@
   </entry>
   
   <entry>
+    <title>Git 저장소 초기화 및 리모트 연결</title>
+    <link href="https://brainew.github.io/2025/09/19/git-init-remote-push/"/>
+    <id>https://brainew.github.io/2025/09/19/git-init-remote-push/</id>
+    <published>2025-09-19T06:25:00.000Z</published>
+    <updated>2025-09-19T06:44:20.607Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;상황&quot;&gt;&lt;a href=&quot;#상황&quot; class=&quot;headerlink&quot; title=&quot;상황&quot;&gt;&lt;/a&gt;상황&lt;/h2&gt;&lt;p&gt;미리 깃 레포를 만들고 시작한 경우가 아니라 프로젝트 세팅이 먼저 된 후 깃 레포 생성된 경우&lt;/p&gt;
+&lt;p&gt;깃 저장소를 초기화 시킨 후 리모트 연결하여 포스 푸시하는 그것&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Git" scheme="https://brainew.github.io/categories/Git/"/>
+    
+    <category term="개발도구" scheme="https://brainew.github.io/categories/Git/%EA%B0%9C%EB%B0%9C%EB%8F%84%EA%B5%AC/"/>
+    
+    
+    <category term="Git" scheme="https://brainew.github.io/tags/Git/"/>
+    
+    <category term="GitHub" scheme="https://brainew.github.io/tags/GitHub/"/>
+    
+    <category term="버전관리" scheme="https://brainew.github.io/tags/%EB%B2%84%EC%A0%84%EA%B4%80%EB%A6%AC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis With Docker 설정하기</title>
+    <link href="https://brainew.github.io/2025/09/19/redis-with-docker/"/>
+    <id>https://brainew.github.io/2025/09/19/redis-with-docker/</id>
+    <published>2025-09-19T06:20:00.000Z</published>
+    <updated>2025-09-19T06:44:21.212Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;Redis-Docker로-설치하기&quot;&gt;&lt;a href=&quot;#Redis-Docker로-설치하기&quot; class=&quot;headerlink&quot; title=&quot;Redis Docker로 설치하기&quot;&gt;&lt;/a&gt;Redis Docker로 설치하기&lt;/h2&gt;&lt;p&gt;알파인 리눅스 기반의 레디스를 설치해보자.&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Docker" scheme="https://brainew.github.io/categories/Docker/"/>
+    
+    <category term="Redis" scheme="https://brainew.github.io/categories/Docker/Redis/"/>
+    
+    <category term="Database" scheme="https://brainew.github.io/categories/Docker/Redis/Database/"/>
+    
+    
+    <category term="Docker" scheme="https://brainew.github.io/tags/Docker/"/>
+    
+    <category term="Redis" scheme="https://brainew.github.io/tags/Redis/"/>
+    
+    <category term="캐시" scheme="https://brainew.github.io/tags/%EC%BA%90%EC%8B%9C/"/>
+    
+    <category term="데이터베이스" scheme="https://brainew.github.io/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Jenkins With Docker &amp; Nexus 구축하기</title>
+    <link href="https://brainew.github.io/2025/09/19/jenkins-docker-nexus-setup/"/>
+    <id>https://brainew.github.io/2025/09/19/jenkins-docker-nexus-setup/</id>
+    <published>2025-09-19T06:15:00.000Z</published>
+    <updated>2025-09-19T06:44:21.805Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;전제-조건&quot;&gt;&lt;a href=&quot;#전제-조건&quot; class=&quot;headerlink&quot; title=&quot;전제 조건&quot;&gt;&lt;/a&gt;전제 조건&lt;/h2&gt;&lt;p&gt;Jenkins와 Nexus가 이미 구축되어있다는 전제하에 진행합니다.&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="DevOps" scheme="https://brainew.github.io/categories/DevOps/"/>
+    
+    <category term="Jenkins" scheme="https://brainew.github.io/categories/DevOps/Jenkins/"/>
+    
+    <category term="Docker" scheme="https://brainew.github.io/categories/DevOps/Jenkins/Docker/"/>
+    
+    
+    <category term="DevOps" scheme="https://brainew.github.io/tags/DevOps/"/>
+    
+    <category term="Jenkins" scheme="https://brainew.github.io/tags/Jenkins/"/>
+    
+    <category term="Docker" scheme="https://brainew.github.io/tags/Docker/"/>
+    
+    <category term="Nexus" scheme="https://brainew.github.io/tags/Nexus/"/>
+    
+    <category term="CI/CD" scheme="https://brainew.github.io/tags/CI-CD/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Kubernetes 마스터 플랜 (CKA 취득 목표)</title>
     <link href="https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/"/>
     <id>https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/</id>

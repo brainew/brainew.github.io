@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"brainew.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="Redis Docker로 설치하기알파인 리눅스 기반의 레디스를 설치해보자.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis With Docker 설정하기">
+<meta property="og:url" content="https://brainew.github.io/2025/09/19/redis-with-docker/index.html">
+<meta property="og:site_name" content="브레인의 기술 블로그">
+<meta property="og:description" content="Redis Docker로 설치하기알파인 리눅스 기반의 레디스를 설치해보자.">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2025-09-19T06:20:00.000Z">
+<meta property="article:modified_time" content="2025-09-19T06:44:21.212Z">
+<meta property="article:author" content="brainew">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="캐시">
+<meta property="article:tag" content="데이터베이스">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://brainew.github.io/2025/09/19/redis-with-docker/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://brainew.github.io/2025/09/19/redis-with-docker/","path":"2025/09/19/redis-with-docker/","title":"Redis With Docker 설정하기"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis With Docker 설정하기 | 브레인의 기술 블로그</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="브레인의 기술 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">브레인의 기술 블로그</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">AI 시대를 살아가는 백엔드/인프라 개발자의 성장 기록</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-Docker%EB%A1%9C-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0"><span class="nav-number">1.</span> <span class="nav-text">Redis Docker로 설치하기</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C"><span class="nav-number">2.</span> <span class="nav-text">Redis 이미지 다운로드</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%8F%84%EC%BB%A4-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EC%84%A4%EC%A0%95"><span class="nav-number">3.</span> <span class="nav-text">도커 네트워크 설정</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EC%8B%A4%ED%96%89"><span class="nav-number">4.</span> <span class="nav-text">Redis 컨테이너 실행</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EA%B8%B0%EB%B3%B8-%EC%8B%A4%ED%96%89"><span class="nav-number">4.1.</span> <span class="nav-text">기본 실행</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%84%A4%EC%A0%95-%ED%8C%8C%EC%9D%BC%EA%B3%BC-%ED%95%A8%EA%BB%98-%EC%8B%A4%ED%96%89"><span class="nav-number">4.2.</span> <span class="nav-text">설정 파일과 함께 실행</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%97%B0%EA%B2%B0"><span class="nav-number">5.</span> <span class="nav-text">Redis 클라이언트 연결</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%EB%A1%9C-Redis-CLI-%EC%82%AC%EC%9A%A9"><span class="nav-number">5.1.</span> <span class="nav-text">Docker로 Redis CLI 사용</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EA%B8%B0%EB%B3%B8-Redis-%EB%AA%85%EB%A0%B9%EC%96%B4-%ED%85%8C%EC%8A%A4%ED%8A%B8"><span class="nav-number">5.2.</span> <span class="nav-text">기본 Redis 명령어 테스트</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Boot%EC%99%80-%EC%97%B0%EB%8F%99"><span class="nav-number">6.</span> <span class="nav-text">Spring Boot와 연동</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#application-yml-%EC%84%A4%EC%A0%95"><span class="nav-number">6.1.</span> <span class="nav-text">application.yml 설정</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RedisTemplate-%EC%84%A4%EC%A0%95"><span class="nav-number">6.2.</span> <span class="nav-text">RedisTemplate 설정</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Compose%EB%A1%9C-%EA%B4%80%EB%A6%AC"><span class="nav-number">7.</span> <span class="nav-text">Docker Compose로 관리</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81"><span class="nav-number">8.</span> <span class="nav-text">모니터링</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%EC%83%81%ED%83%9C-%ED%99%95%EC%9D%B8"><span class="nav-number">8.1.</span> <span class="nav-text">Redis 상태 확인</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%84%B1%EB%8A%A5-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81"><span class="nav-number">8.2.</span> <span class="nav-text">성능 모니터링</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%B0%B1%EC%97%85-%EB%B0%8F-%EB%B3%B5%EA%B5%AC"><span class="nav-number">9.</span> <span class="nav-text">백업 및 복구</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B0%B1%EC%97%85"><span class="nav-number">9.1.</span> <span class="nav-text">데이터 백업</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B3%B5%EA%B5%AC"><span class="nav-number">9.2.</span> <span class="nav-text">데이터 복구</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B2%B0%EB%A1%A0"><span class="nav-number">10.</span> <span class="nav-text">결론</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%8B%A4%EC%9D%8C-%EB%8B%A8%EA%B3%84"><span class="nav-number">11.</span> <span class="nav-text">다음 단계</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brainew</p>
+  <div class="site-description" itemprop="description">백엔드 개발, 인프라 운영, DevOps, Kubernetes, AWS 등 실무 경험과 학습 내용을 공유합니다.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://brainew.github.io/2025/09/19/redis-with-docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brainew">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="브레인의 기술 블로그">
+      <meta itemprop="description" content="백엔드 개발, 인프라 운영, DevOps, Kubernetes, AWS 등 실무 경험과 학습 내용을 공유합니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis With Docker 설정하기 | 브레인의 기술 블로그">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis With Docker 설정하기
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+      
+
+      <time title="Post created: 2025-09-19 15:20:00 / Updated at: 15:44:21" itemprop="dateCreated datePublished" datetime="2025-09-19T15:20:00+09:00">2025-09-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Docker/Redis/Database/" itemprop="url" rel="index"><span itemprop="name">Database</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="Redis-Docker로-설치하기"><a href="#Redis-Docker로-설치하기" class="headerlink" title="Redis Docker로 설치하기"></a>Redis Docker로 설치하기</h2><p>알파인 리눅스 기반의 레디스를 설치해보자.</p>
+<span id="more"></span>
+
+<h2 id="Redis-이미지-다운로드"><a href="#Redis-이미지-다운로드" class="headerlink" title="Redis 이미지 다운로드"></a>Redis 이미지 다운로드</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 알파인 리눅스 기반의 레디스 설치</span></span><br><span class="line">docker pull redis:alpine</span><br></pre></td></tr></table></figure>
+
+<h2 id="도커-네트워크-설정"><a href="#도커-네트워크-설정" class="headerlink" title="도커 네트워크 설정"></a>도커 네트워크 설정</h2><p>도커 네트워크를 구성하는 이유는 IP기반이 아닌 도커 이미지 이름 등으로 내부 이미지들의 공유 네트워크를 만들기 위함이다.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 도커 네트워크 생성</span></span><br><span class="line">docker network create redis-network</span><br><span class="line"></span><br><span class="line"><span class="comment"># 네트워크 확인</span></span><br><span class="line">docker network <span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis-컨테이너-실행"><a href="#Redis-컨테이너-실행" class="headerlink" title="Redis 컨테이너 실행"></a>Redis 컨테이너 실행</h2><h3 id="기본-실행"><a href="#기본-실행" class="headerlink" title="기본 실행"></a>기본 실행</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 기본 Redis 컨테이너 실행</span></span><br><span class="line">docker run -d \</span><br><span class="line">  --name redis-server \</span><br><span class="line">  --network redis-network \</span><br><span class="line">  -p 6379:6379 \</span><br><span class="line">  redis:alpine</span><br></pre></td></tr></table></figure>
+
+<h3 id="설정-파일과-함께-실행"><a href="#설정-파일과-함께-실행" class="headerlink" title="설정 파일과 함께 실행"></a>설정 파일과 함께 실행</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Redis 설정 파일 생성</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /opt/redis/conf</span><br><span class="line"><span class="built_in">mkdir</span> -p /opt/redis/data</span><br><span class="line"></span><br><span class="line"><span class="comment"># redis.conf 파일 생성</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /opt/redis/conf/redis.conf &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string"># Redis 설정</span></span><br><span class="line"><span class="string">bind 0.0.0.0</span></span><br><span class="line"><span class="string">port 6379</span></span><br><span class="line"><span class="string">timeout 0</span></span><br><span class="line"><span class="string">tcp-keepalive 300</span></span><br><span class="line"><span class="string">daemonize no</span></span><br><span class="line"><span class="string">supervised no</span></span><br><span class="line"><span class="string">pidfile /var/run/redis_6379.pid</span></span><br><span class="line"><span class="string">loglevel notice</span></span><br><span class="line"><span class="string">logfile &quot;&quot;</span></span><br><span class="line"><span class="string">databases 16</span></span><br><span class="line"><span class="string">save 900 1</span></span><br><span class="line"><span class="string">save 300 10</span></span><br><span class="line"><span class="string">save 60 10000</span></span><br><span class="line"><span class="string">stop-writes-on-bgsave-error yes</span></span><br><span class="line"><span class="string">rdbcompression yes</span></span><br><span class="line"><span class="string">rdbchecksum yes</span></span><br><span class="line"><span class="string">dbfilename dump.rdb</span></span><br><span class="line"><span class="string">dir ./</span></span><br><span class="line"><span class="string">requirepass yourpassword</span></span><br><span class="line"><span class="string">maxmemory 256mb</span></span><br><span class="line"><span class="string">maxmemory-policy allkeys-lru</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 설정 파일과 함께 Redis 실행</span></span><br><span class="line">docker run -d \</span><br><span class="line">  --name redis-server \</span><br><span class="line">  --network redis-network \</span><br><span class="line">  -p 6379:6379 \</span><br><span class="line">  -v /opt/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf \</span><br><span class="line">  -v /opt/redis/data:/data \</span><br><span class="line">  redis:alpine redis-server /usr/local/etc/redis/redis.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis-클라이언트-연결"><a href="#Redis-클라이언트-연결" class="headerlink" title="Redis 클라이언트 연결"></a>Redis 클라이언트 연결</h2><h3 id="Docker로-Redis-CLI-사용"><a href="#Docker로-Redis-CLI-사용" class="headerlink" title="Docker로 Redis CLI 사용"></a>Docker로 Redis CLI 사용</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Redis CLI 컨테이너로 접속</span></span><br><span class="line">docker run -it --<span class="built_in">rm</span> \</span><br><span class="line">  --network redis-network \</span><br><span class="line">  redis:alpine redis-cli -h redis-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 비밀번호가 설정된 경우</span></span><br><span class="line">docker run -it --<span class="built_in">rm</span> \</span><br><span class="line">  --network redis-network \</span><br><span class="line">  redis:alpine redis-cli -h redis-server -a yourpassword</span><br></pre></td></tr></table></figure>
+
+<h3 id="기본-Redis-명령어-테스트"><a href="#기본-Redis-명령어-테스트" class="headerlink" title="기본 Redis 명령어 테스트"></a>기본 Redis 명령어 테스트</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 문자열 저장/조회</span></span><br><span class="line">127.0.0.1:6379&gt; SET mykey <span class="string">&quot;Hello Redis&quot;</span></span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; GET mykey</span><br><span class="line"><span class="string">&quot;Hello Redis&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 해시 저장/조회</span></span><br><span class="line">127.0.0.1:6379&gt; HSET user:1 name <span class="string">&quot;John&quot;</span> age 30</span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line">127.0.0.1:6379&gt; HGET user:1 name</span><br><span class="line"><span class="string">&quot;John&quot;</span></span><br><span class="line">127.0.0.1:6379&gt; HGETALL user:1</span><br><span class="line">1) <span class="string">&quot;name&quot;</span></span><br><span class="line">2) <span class="string">&quot;John&quot;</span></span><br><span class="line">3) <span class="string">&quot;age&quot;</span></span><br><span class="line">4) <span class="string">&quot;30&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 리스트 조작</span></span><br><span class="line">127.0.0.1:6379&gt; LPUSH mylist <span class="string">&quot;world&quot;</span></span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">127.0.0.1:6379&gt; LPUSH mylist <span class="string">&quot;hello&quot;</span></span><br><span class="line">(<span class="built_in">integer</span>) 2</span><br><span class="line">127.0.0.1:6379&gt; LRANGE mylist 0 -1</span><br><span class="line">1) <span class="string">&quot;hello&quot;</span></span><br><span class="line">2) <span class="string">&quot;world&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-Boot와-연동"><a href="#Spring-Boot와-연동" class="headerlink" title="Spring Boot와 연동"></a>Spring Boot와 연동</h2><h3 id="application-yml-설정"><a href="#application-yml-설정" class="headerlink" title="application.yml 설정"></a>application.yml 설정</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">yourpassword</span></span><br><span class="line">    <span class="attr">timeout:</span> <span class="string">2000ms</span></span><br><span class="line">    <span class="attr">lettuce:</span></span><br><span class="line">      <span class="attr">pool:</span></span><br><span class="line">        <span class="attr">max-active:</span> <span class="number">8</span></span><br><span class="line">        <span class="attr">max-idle:</span> <span class="number">8</span></span><br><span class="line">        <span class="attr">min-idle:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="RedisTemplate-설정"><a href="#RedisTemplate-설정" class="headerlink" title="RedisTemplate 설정"></a>RedisTemplate 설정</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableCaching</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedisConnectionFactory <span class="title function_">redisConnectionFactory</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">LettuceConnectionFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LettuceConnectionFactory</span>(</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">RedisStandaloneConfiguration</span>(<span class="string">&quot;localhost&quot;</span>, <span class="number">6379</span>)</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">return</span> factory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;String, Object&gt; <span class="title function_">redisTemplate</span><span class="params">()</span> &#123;</span><br><span class="line">        RedisTemplate&lt;String, Object&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        template.setConnectionFactory(redisConnectionFactory());</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// JSON 직렬화 설정</span></span><br><span class="line">        template.setDefaultSerializer(<span class="keyword">new</span> <span class="title class_">GenericJackson2JsonRedisSerializer</span>());</span><br><span class="line">        template.setKeySerializer(<span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>());</span><br><span class="line">        template.setHashKeySerializer(<span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>());</span><br><span class="line">        template.setValueSerializer(<span class="keyword">new</span> <span class="title class_">GenericJackson2JsonRedisSerializer</span>());</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> CacheManager <span class="title function_">cacheManager</span><span class="params">()</span> &#123;</span><br><span class="line">        RedisCacheManager.<span class="type">Builder</span> <span class="variable">builder</span> <span class="operator">=</span> RedisCacheManager</span><br><span class="line">            .RedisCacheManagerBuilder</span><br><span class="line">            .fromConnectionFactory(redisConnectionFactory())</span><br><span class="line">            .cacheDefaults(cacheConfiguration(Duration.ofMinutes(<span class="number">10</span>)));</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> builder.build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> RedisCacheConfiguration <span class="title function_">cacheConfiguration</span><span class="params">(Duration ttl)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> RedisCacheConfiguration.defaultCacheConfig()</span><br><span class="line">            .entryTtl(ttl)</span><br><span class="line">            .disableCachingNullValues()</span><br><span class="line">            .serializeKeysWith(RedisSerializationContext.SerializationPair</span><br><span class="line">                .fromSerializer(<span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>()))</span><br><span class="line">            .serializeValuesWith(RedisSerializationContext.SerializationPair</span><br><span class="line">                .fromSerializer(<span class="keyword">new</span> <span class="title class_">GenericJackson2JsonRedisSerializer</span>()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-Compose로-관리"><a href="#Docker-Compose로-관리" class="headerlink" title="Docker Compose로 관리"></a>Docker Compose로 관리</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis:alpine</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">redis-server</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;6379:6379&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./redis/conf/redis.conf:/usr/local/etc/redis/redis.conf</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./redis/data:/data</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span> <span class="string">/usr/local/etc/redis/redis.conf</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">app-network</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">app:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">spring-app</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8080:8080&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">SPRING_REDIS_HOST=redis</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">SPRING_REDIS_PORT=6379</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">app-network</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">app-network:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">bridge</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="모니터링"><a href="#모니터링" class="headerlink" title="모니터링"></a>모니터링</h2><h3 id="Redis-상태-확인"><a href="#Redis-상태-확인" class="headerlink" title="Redis 상태 확인"></a>Redis 상태 확인</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Redis 정보 확인</span></span><br><span class="line">docker <span class="built_in">exec</span> redis-server redis-cli info</span><br><span class="line"></span><br><span class="line"><span class="comment"># 메모리 사용량 확인</span></span><br><span class="line">docker <span class="built_in">exec</span> redis-server redis-cli info memory</span><br><span class="line"></span><br><span class="line"><span class="comment"># 연결된 클라이언트 확인</span></span><br><span class="line">docker <span class="built_in">exec</span> redis-server redis-cli client list</span><br></pre></td></tr></table></figure>
+
+<h3 id="성능-모니터링"><a href="#성능-모니터링" class="headerlink" title="성능 모니터링"></a>성능 모니터링</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Redis 실시간 모니터링</span></span><br><span class="line">docker <span class="built_in">exec</span> -it redis-server redis-cli --latency</span><br><span class="line"></span><br><span class="line"><span class="comment"># 슬로우 쿼리 로그 확인</span></span><br><span class="line">docker <span class="built_in">exec</span> redis-server redis-cli slowlog get 10</span><br></pre></td></tr></table></figure>
+
+<h2 id="백업-및-복구"><a href="#백업-및-복구" class="headerlink" title="백업 및 복구"></a>백업 및 복구</h2><h3 id="데이터-백업"><a href="#데이터-백업" class="headerlink" title="데이터 백업"></a>데이터 백업</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># RDB 백업 생성</span></span><br><span class="line">docker <span class="built_in">exec</span> redis-server redis-cli BGSAVE</span><br><span class="line"></span><br><span class="line"><span class="comment"># 백업 파일 복사</span></span><br><span class="line">docker <span class="built_in">cp</span> redis-server:/data/dump.rdb ./backup/</span><br></pre></td></tr></table></figure>
+
+<h3 id="데이터-복구"><a href="#데이터-복구" class="headerlink" title="데이터 복구"></a>데이터 복구</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 백업 파일 복사</span></span><br><span class="line">docker <span class="built_in">cp</span> ./backup/dump.rdb redis-server:/data/</span><br><span class="line"></span><br><span class="line"><span class="comment"># Redis 재시작</span></span><br><span class="line">docker restart redis-server</span><br></pre></td></tr></table></figure>
+
+<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>Docker를 사용하면 Redis를 쉽게 설치하고 관리할 수 있다.</p>
+<p>특히 개발 환경에서는 Docker Compose를 사용해서 애플리케이션과 함께 관리하는 것이 편리하다.</p>
+<p>프로덕션 환경에서는 Redis Cluster나 Sentinel을 고려해보자.</p>
+<h2 id="다음-단계"><a href="#다음-단계" class="headerlink" title="다음 단계"></a>다음 단계</h2><p>Redis 환경이 준비되었으니 이제 CI&#x2F;CD 파이프라인을 구축해보자.</p>
+<p>다음 글에서는 Jenkins와 Docker, Nexus를 연동한 완전 자동화된 빌드 및 배포 시스템을 만들어보겠다.</p>
+<p><strong>전체 로드맵</strong>: <a href="/2025/09/19/backend-developer-roadmap/">백엔드 개발자 성장 로드맵</a><br><strong>다음 글</strong>: Jenkins With Docker &amp; Nexus 구축하기</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+              <a href="/tags/%EC%BA%90%EC%8B%9C/" rel="tag"># 캐시</a>
+              <a href="/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/" rel="tag"># 데이터베이스</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/09/19/jenkins-docker-nexus-setup/" rel="prev" title="Jenkins With Docker &amp; Nexus 구축하기">
+                  <i class="fa fa-angle-left"></i> Jenkins With Docker & Nexus 구축하기
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/09/19/git-init-remote-push/" rel="next" title="Git 저장소 초기화 및 리모트 연결">
+                  Git 저장소 초기화 및 리모트 연결 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">brainew</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

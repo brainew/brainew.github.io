@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://brainew.github.io/2025/09/19/jenkins-docker-nexus-setup/</loc>
+    
+    <lastmod>2025-09-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/2025/09/19/redis-with-docker/</loc>
+    
+    <lastmod>2025-09-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/2025/09/19/git-init-remote-push/</loc>
+    
+    <lastmod>2025-09-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/</loc>
     
     <lastmod>2025-09-19</lastmod>
@@ -87,6 +114,55 @@
   </url>
   
   <url>
+    <loc>https://brainew.github.io/tags/Git/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/GitHub/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/%EB%B2%84%EC%A0%84%EA%B4%80%EB%A6%AC/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/Jenkins/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/Docker/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/Nexus/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/CI-CD/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://brainew.github.io/tags/Kubernetes/</loc>
     <lastmod>2025-09-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -114,6 +190,27 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://brainew.github.io/tags/Redis/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/%EC%BA%90%EC%8B%9C/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -124,7 +221,14 @@
   </url>
   
   <url>
-    <loc>https://brainew.github.io/categories/Kubernetes/</loc>
+    <loc>https://brainew.github.io/categories/Git/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/categories/DevOps/</loc>
     <lastmod>2025-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -138,6 +242,20 @@
   </url>
   
   <url>
+    <loc>https://brainew.github.io/categories/Kubernetes/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/categories/Docker/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://brainew.github.io/categories/Career/Roadmap/</loc>
     <lastmod>2025-09-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -145,7 +263,14 @@
   </url>
   
   <url>
-    <loc>https://brainew.github.io/categories/Kubernetes/DevOps/</loc>
+    <loc>https://brainew.github.io/categories/Git/%EA%B0%9C%EB%B0%9C%EB%8F%84%EA%B5%AC/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/categories/DevOps/Jenkins/</loc>
     <lastmod>2025-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -159,7 +284,35 @@
   </url>
   
   <url>
+    <loc>https://brainew.github.io/categories/Kubernetes/DevOps/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/categories/Docker/Redis/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/categories/DevOps/Jenkins/Docker/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://brainew.github.io/categories/Kubernetes/DevOps/Learning/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/categories/Docker/Redis/Database/</loc>
     <lastmod>2025-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

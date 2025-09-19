@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"brainew.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="상황미리 깃 레포를 만들고 시작한 경우가 아니라 프로젝트 세팅이 먼저 된 후 깃 레포 생성된 경우 깃 저장소를 초기화 시킨 후 리모트 연결하여 포스 푸시하는 그것">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git 저장소 초기화 및 리모트 연결">
+<meta property="og:url" content="https://brainew.github.io/2025/09/19/git-init-remote-push/index.html">
+<meta property="og:site_name" content="브레인의 기술 블로그">
+<meta property="og:description" content="상황미리 깃 레포를 만들고 시작한 경우가 아니라 프로젝트 세팅이 먼저 된 후 깃 레포 생성된 경우 깃 저장소를 초기화 시킨 후 리모트 연결하여 포스 푸시하는 그것">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2025-09-19T06:25:00.000Z">
+<meta property="article:modified_time" content="2025-09-19T06:44:20.607Z">
+<meta property="article:author" content="brainew">
+<meta property="article:tag" content="Git">
+<meta property="article:tag" content="GitHub">
+<meta property="article:tag" content="버전관리">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://brainew.github.io/2025/09/19/git-init-remote-push/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://brainew.github.io/2025/09/19/git-init-remote-push/","path":"2025/09/19/git-init-remote-push/","title":"Git 저장소 초기화 및 리모트 연결"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git 저장소 초기화 및 리모트 연결 | 브레인의 기술 블로그</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="브레인의 기술 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">브레인의 기술 블로그</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">AI 시대를 살아가는 백엔드/인프라 개발자의 성장 기록</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%83%81%ED%99%A9"><span class="nav-number">1.</span> <span class="nav-text">상황</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B8%B0%EB%B3%B8-%EC%84%A4%EC%A0%95"><span class="nav-number">2.</span> <span class="nav-text">기본 설정</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%ED%8C%8C%EC%9D%BC-%EC%B6%94%EA%B0%80-%EB%B0%8F-%EC%BB%A4%EB%B0%8B"><span class="nav-number">3.</span> <span class="nav-text">파일 추가 및 커밋</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%B8%8C%EB%9E%9C%EC%B9%98-%EC%84%A4%EC%A0%95-%EB%B0%8F-%ED%91%B8%EC%8B%9C"><span class="nav-number">4.</span> <span class="nav-text">브랜치 설정 및 푸시</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gitignore-%EC%84%A4%EC%A0%95"><span class="nav-number">5.</span> <span class="nav-text">.gitignore 설정</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Spring-Boot"><span class="nav-number">5.1.</span> <span class="nav-text">Java&#x2F;Spring Boot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js"><span class="nav-number">5.2.</span> <span class="nav-text">Node.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%9E%90%EC%A3%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EB%AA%85%EB%A0%B9%EC%96%B4"><span class="nav-number">6.</span> <span class="nav-text">자주 사용하는 명령어</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%A6%AC%EB%AA%A8%ED%8A%B8-%EC%A0%80%EC%9E%A5%EC%86%8C-%ED%99%95%EC%9D%B8"><span class="nav-number">6.1.</span> <span class="nav-text">리모트 저장소 확인</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%B8%8C%EB%9E%9C%EC%B9%98-%EA%B4%80%EB%A6%AC"><span class="nav-number">6.2.</span> <span class="nav-text">브랜치 관리</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%BB%A4%EB%B0%8B-%ED%9E%88%EC%8A%A4%ED%86%A0%EB%A6%AC-%EC%A0%95%EB%A6%AC"><span class="nav-number">6.3.</span> <span class="nav-text">커밋 히스토리 정리</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85"><span class="nav-number">7.</span> <span class="nav-text">트러블슈팅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9E%90%EC%A3%BC-%EB%B0%9C%EC%83%9D%ED%95%98%EB%8A%94-%EB%AC%B8%EC%A0%9C%EB%93%A4"><span class="nav-number">7.1.</span> <span class="nav-text">자주 발생하는 문제들</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%ED%8C%80-%EC%9E%91%EC%97%85%EC%8B%9C-%EA%B6%8C%EC%9E%A5%EC%82%AC%ED%95%AD"><span class="nav-number">8.</span> <span class="nav-text">팀 작업시 권장사항</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%B8%8C%EB%9E%9C%EC%B9%98-%EC%A0%84%EB%9E%B5"><span class="nav-number">8.1.</span> <span class="nav-text">브랜치 전략</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%BB%A4%EB%B0%8B-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%BB%A8%EB%B2%A4%EC%85%98"><span class="nav-number">8.2.</span> <span class="nav-text">커밋 메시지 컨벤션</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B2%B0%EB%A1%A0"><span class="nav-number">9.</span> <span class="nav-text">결론</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%8B%A4%EC%9D%8C-%EB%8B%A8%EA%B3%84"><span class="nav-number">10.</span> <span class="nav-text">다음 단계</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brainew</p>
+  <div class="site-description" itemprop="description">백엔드 개발, 인프라 운영, DevOps, Kubernetes, AWS 등 실무 경험과 학습 내용을 공유합니다.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://brainew.github.io/2025/09/19/git-init-remote-push/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brainew">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="브레인의 기술 블로그">
+      <meta itemprop="description" content="백엔드 개발, 인프라 운영, DevOps, Kubernetes, AWS 등 실무 경험과 학습 내용을 공유합니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Git 저장소 초기화 및 리모트 연결 | 브레인의 기술 블로그">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git 저장소 초기화 및 리모트 연결
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+      
+
+      <time title="Post created: 2025-09-19 15:25:00 / Updated at: 15:44:20" itemprop="dateCreated datePublished" datetime="2025-09-19T15:25:00+09:00">2025-09-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+        </span>
+          , 
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Git/%EA%B0%9C%EB%B0%9C%EB%8F%84%EA%B5%AC/" itemprop="url" rel="index"><span itemprop="name">개발도구</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="상황"><a href="#상황" class="headerlink" title="상황"></a>상황</h2><p>미리 깃 레포를 만들고 시작한 경우가 아니라 프로젝트 세팅이 먼저 된 후 깃 레포 생성된 경우</p>
+<p>깃 저장소를 초기화 시킨 후 리모트 연결하여 포스 푸시하는 그것</p>
+<span id="more"></span>
+
+<h2 id="기본-설정"><a href="#기본-설정" class="headerlink" title="기본 설정"></a>기본 설정</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Git 저장소 초기화</span></span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line"><span class="comment"># 리모트 저장소 연결</span></span><br><span class="line">git remote add origin &#123;깃 주소&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="파일-추가-및-커밋"><a href="#파일-추가-및-커밋" class="headerlink" title="파일 추가 및 커밋"></a>파일 추가 및 커밋</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 편의상 모든 파일을 추가하였으나 포함되면 안되는 파일등이 있는경우 .gitignore를 작성하여 제외</span></span><br><span class="line">git add .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 첫 커밋</span></span><br><span class="line">git commit -m <span class="string">&quot;Initial commit&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="브랜치-설정-및-푸시"><a href="#브랜치-설정-및-푸시" class="headerlink" title="브랜치 설정 및 푸시"></a>브랜치 설정 및 푸시</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 기본 브랜치를 main으로 설정 (최신 GitHub 기본값)</span></span><br><span class="line">git branch -M main</span><br><span class="line"></span><br><span class="line"><span class="comment"># 강제 푸시 (리모트 저장소가 비어있지 않은 경우)</span></span><br><span class="line">git push -u origin main --force</span><br></pre></td></tr></table></figure>
+
+<h2 id="gitignore-설정"><a href="#gitignore-설정" class="headerlink" title=".gitignore 설정"></a>.gitignore 설정</h2><p>프로젝트 타입별 .gitignore 예시:</p>
+<h3 id="Java-Spring-Boot"><a href="#Java-Spring-Boot" class="headerlink" title="Java&#x2F;Spring Boot"></a>Java&#x2F;Spring Boot</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"># Compiled class file</span><br><span class="line">*.class</span><br><span class="line"></span><br><span class="line"># Log file</span><br><span class="line">*.log</span><br><span class="line"></span><br><span class="line"># BlueJ files</span><br><span class="line">*.ctxt</span><br><span class="line"></span><br><span class="line"># Mobile Tools for Java (J2ME)</span><br><span class="line">.mtj.tmp/</span><br><span class="line"></span><br><span class="line"># Package Files</span><br><span class="line">*.jar</span><br><span class="line">*.war</span><br><span class="line">*.nar</span><br><span class="line">*.ear</span><br><span class="line">*.zip</span><br><span class="line">*.tar.gz</span><br><span class="line">*.rar</span><br><span class="line"></span><br><span class="line"># virtual machine crash logs</span><br><span class="line">hs_err_pid*</span><br><span class="line"></span><br><span class="line"># IDE</span><br><span class="line">.idea/</span><br><span class="line">*.iws</span><br><span class="line">*.iml</span><br><span class="line">*.ipr</span><br><span class="line">.vscode/</span><br><span class="line"></span><br><span class="line"># Maven</span><br><span class="line">target/</span><br><span class="line">pom.xml.tag</span><br><span class="line">pom.xml.releaseBackup</span><br><span class="line">pom.xml.versionsBackup</span><br><span class="line">pom.xml.next</span><br><span class="line">release.properties</span><br><span class="line">dependency-reduced-pom.xml</span><br><span class="line">buildNumber.properties</span><br><span class="line">.mvn/timing.properties</span><br><span class="line"></span><br><span class="line"># Gradle</span><br><span class="line">.gradle</span><br><span class="line">build/</span><br><span class="line">!gradle/wrapper/gradle-wrapper.jar</span><br><span class="line">!**/src/main/**/build/</span><br><span class="line">!**/src/test/**/build/</span><br><span class="line"></span><br><span class="line"># Spring Boot</span><br><span class="line">*.pid</span><br><span class="line">spring.log</span><br></pre></td></tr></table></figure>
+
+<h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"># Logs</span><br><span class="line">logs</span><br><span class="line">*.log</span><br><span class="line">npm-debug.log*</span><br><span class="line">yarn-debug.log*</span><br><span class="line">yarn-error.log*</span><br><span class="line"></span><br><span class="line"># Runtime data</span><br><span class="line">pids</span><br><span class="line">*.pid</span><br><span class="line">*.seed</span><br><span class="line">*.pid.lock</span><br><span class="line"></span><br><span class="line"># Directory for instrumented libs generated by jscoverage/JSCover</span><br><span class="line">lib-cov</span><br><span class="line"></span><br><span class="line"># Coverage directory used by tools like istanbul</span><br><span class="line">coverage/</span><br><span class="line"></span><br><span class="line"># nyc test coverage</span><br><span class="line">.nyc_output</span><br><span class="line"></span><br><span class="line"># Grunt intermediate storage</span><br><span class="line">.grunt</span><br><span class="line"></span><br><span class="line"># Bower dependency directory</span><br><span class="line">bower_components</span><br><span class="line"></span><br><span class="line"># node-waf configuration</span><br><span class="line">.lock-wscript</span><br><span class="line"></span><br><span class="line"># Compiled binary addons</span><br><span class="line">build/Release</span><br><span class="line"></span><br><span class="line"># Dependency directories</span><br><span class="line">node_modules/</span><br><span class="line">jspm_packages/</span><br><span class="line"></span><br><span class="line"># Optional npm cache directory</span><br><span class="line">.npm</span><br><span class="line"></span><br><span class="line"># Optional REPL history</span><br><span class="line">.node_repl_history</span><br><span class="line"></span><br><span class="line"># Output of &#x27;npm pack&#x27;</span><br><span class="line">*.tgz</span><br><span class="line"></span><br><span class="line"># Yarn Integrity file</span><br><span class="line">.yarn-integrity</span><br><span class="line"></span><br><span class="line"># dotenv environment variables file</span><br><span class="line">.env</span><br><span class="line"></span><br><span class="line"># IDE</span><br><span class="line">.vscode/</span><br><span class="line">.idea/</span><br></pre></td></tr></table></figure>
+
+<h2 id="자주-사용하는-명령어"><a href="#자주-사용하는-명령어" class="headerlink" title="자주 사용하는 명령어"></a>자주 사용하는 명령어</h2><h3 id="리모트-저장소-확인"><a href="#리모트-저장소-확인" class="headerlink" title="리모트 저장소 확인"></a>리모트 저장소 확인</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 리모트 저장소 목록 확인</span></span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 리모트 저장소 변경</span></span><br><span class="line">git remote set-url origin &#123;새로운 깃 주소&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="브랜치-관리"><a href="#브랜치-관리" class="headerlink" title="브랜치 관리"></a>브랜치 관리</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 현재 브랜치 확인</span></span><br><span class="line">git branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 새 브랜치 생성 및 이동</span></span><br><span class="line">git checkout -b feature/new-feature</span><br><span class="line"></span><br><span class="line"><span class="comment"># 브랜치 푸시</span></span><br><span class="line">git push -u origin feature/new-feature</span><br></pre></td></tr></table></figure>
+
+<h3 id="커밋-히스토리-정리"><a href="#커밋-히스토리-정리" class="headerlink" title="커밋 히스토리 정리"></a>커밋 히스토리 정리</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 마지막 커밋 메시지 수정</span></span><br><span class="line">git commit --amend -m <span class="string">&quot;새로운 커밋 메시지&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 여러 커밋을 하나로 합치기 (interactive rebase)</span></span><br><span class="line">git rebase -i HEAD~3</span><br></pre></td></tr></table></figure>
+
+<h2 id="트러블슈팅"><a href="#트러블슈팅" class="headerlink" title="트러블슈팅"></a>트러블슈팅</h2><h3 id="자주-발생하는-문제들"><a href="#자주-발생하는-문제들" class="headerlink" title="자주 발생하는 문제들"></a>자주 발생하는 문제들</h3><p><strong>리모트 저장소에 이미 파일이 있는 경우</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 리모트 내용을 가져온 후 병합</span></span><br><span class="line">git pull origin main --allow-unrelated-histories</span><br><span class="line"></span><br><span class="line"><span class="comment"># 또는 강제 푸시</span></span><br><span class="line">git push -u origin main --force</span><br></pre></td></tr></table></figure>
+
+<p><strong>파일이 너무 큰 경우</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Git LFS 설치 및 설정</span></span><br><span class="line">git lfs install</span><br><span class="line">git lfs track <span class="string">&quot;*.zip&quot;</span></span><br><span class="line">git lfs track <span class="string">&quot;*.jar&quot;</span></span><br><span class="line">git add .gitattributes</span><br></pre></td></tr></table></figure>
+
+<p><strong>권한 문제</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># SSH 키 생성</span></span><br><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">&quot;your_email@example.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SSH 키를 GitHub에 등록 후 SSH URL 사용</span></span><br><span class="line">git remote set-url origin git@github.com:username/repository.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="팀-작업시-권장사항"><a href="#팀-작업시-권장사항" class="headerlink" title="팀 작업시 권장사항"></a>팀 작업시 권장사항</h2><h3 id="브랜치-전략"><a href="#브랜치-전략" class="headerlink" title="브랜치 전략"></a>브랜치 전략</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 기능 개발시</span></span><br><span class="line">git checkout -b feature/login-system</span><br><span class="line">git push -u origin feature/login-system</span><br><span class="line"></span><br><span class="line"><span class="comment"># 버그 수정시</span></span><br><span class="line">git checkout -b hotfix/critical-bug</span><br><span class="line">git push -u origin hotfix/critical-bug</span><br></pre></td></tr></table></figure>
+
+<h3 id="커밋-메시지-컨벤션"><a href="#커밋-메시지-컨벤션" class="headerlink" title="커밋 메시지 컨벤션"></a>커밋 메시지 컨벤션</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 좋은 커밋 메시지 예시</span></span><br><span class="line">git commit -m <span class="string">&quot;feat: 사용자 로그인 기능 추가&quot;</span></span><br><span class="line">git commit -m <span class="string">&quot;fix: 비밀번호 검증 로직 수정&quot;</span></span><br><span class="line">git commit -m <span class="string">&quot;docs: README 파일 업데이트&quot;</span></span><br><span class="line">git commit -m <span class="string">&quot;refactor: 사용자 서비스 코드 리팩토링&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="결론"><a href="#결론" class="headerlink" title="결론"></a>결론</h2><p>프로젝트를 먼저 만들고 나중에 Git을 연결하는 경우가 생각보다 많다.</p>
+<p>이때 위의 순서대로 하면 문제없이 연결할 수 있다.</p>
+<p>특히 .gitignore 설정을 미리 해두는 것이 중요하다.</p>
+<h2 id="다음-단계"><a href="#다음-단계" class="headerlink" title="다음 단계"></a>다음 단계</h2><p>Git 환경이 준비되었으니 이제 개발에 필요한 인프라를 구축해보자.</p>
+<p>다음 글에서는 Redis를 Docker로 설정하는 방법을 다룰 예정이다.</p>
+<p><strong>전체 로드맵</strong>: <a href="/2025/09/19/backend-developer-roadmap/">백엔드 개발자 성장 로드맵</a><br><strong>다음 글</strong>: Redis With Docker 설정하기</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"># Git</a>
+              <a href="/tags/GitHub/" rel="tag"># GitHub</a>
+              <a href="/tags/%EB%B2%84%EC%A0%84%EA%B4%80%EB%A6%AC/" rel="tag"># 버전관리</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/09/19/redis-with-docker/" rel="prev" title="Redis With Docker 설정하기">
+                  <i class="fa fa-angle-left"></i> Redis With Docker 설정하기
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/09/19/backend-developer-roadmap/" rel="next" title="백엔드 개발자 성장 로드맵">
+                  백엔드 개발자 성장 로드맵 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">brainew</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
