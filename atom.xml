@@ -6,7 +6,7 @@
   <link href="https://brainew.github.io/atom.xml" rel="self"/>
   
   <link href="https://brainew.github.io/"/>
-  <updated>2025-09-19T06:03:55.675Z</updated>
+  <updated>2025-09-19T06:35:09.166Z</updated>
   <id>https://brainew.github.io/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>백엔드 개발자 성장 로드맵</title>
+    <link href="https://brainew.github.io/2025/09/19/backend-developer-roadmap/"/>
+    <id>https://brainew.github.io/2025/09/19/backend-developer-roadmap/</id>
+    <published>2025-09-19T06:30:00.000Z</published>
+    <updated>2025-09-19T06:35:09.166Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;개요&quot;&gt;&lt;a href=&quot;#개요&quot; class=&quot;headerlink&quot; title=&quot;개요&quot;&gt;&lt;/a&gt;개요&lt;/h2&gt;&lt;p&gt;AI 시대에 살아남기 위한 백엔드 개발자의 체계적인 성장 계획입니다.&lt;/p&gt;
+&lt;p&gt;이론보다는 실무 중심으로, 단계별로 따라할 수 있도록 구성했습니다.&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Career" scheme="https://brainew.github.io/categories/Career/"/>
+    
+    <category term="Roadmap" scheme="https://brainew.github.io/categories/Career/Roadmap/"/>
+    
+    
+    <category term="백엔드개발자" scheme="https://brainew.github.io/tags/%EB%B0%B1%EC%97%94%EB%93%9C%EA%B0%9C%EB%B0%9C%EC%9E%90/"/>
+    
+    <category term="DevOps" scheme="https://brainew.github.io/tags/DevOps/"/>
+    
+    <category term="로드맵" scheme="https://brainew.github.io/tags/%EB%A1%9C%EB%93%9C%EB%A7%B5/"/>
+    
+    <category term="성장계획" scheme="https://brainew.github.io/tags/%EC%84%B1%EC%9E%A5%EA%B3%84%ED%9A%8D/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Kubernetes 마스터 플랜 (CKA 취득 목표)</title>
     <link href="https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/"/>
     <id>https://brainew.github.io/2025/09/17/kubernetes-learning-roadmap/</id>
     <published>2025-09-17T01:00:00.000Z</published>
-    <updated>2025-09-19T06:03:55.675Z</updated>
+    <updated>2025-09-19T06:36:33.719Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;목표-8주-만에-CKA-취득&quot;&gt;&lt;a href=&quot;#목표-8주-만에-CKA-취득&quot; class=&quot;headerlink&quot; title=&quot;목표: 8주 만에 CKA 취득&quot;&gt;&lt;/a&gt;목표: 8주 만에 CKA 취득&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;최종 목표:&lt;/strong&gt;&lt;/p&gt;
@@ -58,7 +86,7 @@
     <link href="https://brainew.github.io/2025/09/17/ai-era-backend-developer-survival/"/>
     <id>https://brainew.github.io/2025/09/17/ai-era-backend-developer-survival/</id>
     <published>2025-09-17T00:48:00.000Z</published>
-    <updated>2025-09-19T06:03:20.517Z</updated>
+    <updated>2025-09-19T06:35:46.511Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;AI가-내-일을-가져갈까&quot;&gt;&lt;a href=&quot;#AI가-내-일을-가져갈까&quot; class=&quot;headerlink&quot; title=&quot;AI가 내 일을 가져갈까?&quot;&gt;&lt;/a&gt;AI가 내 일을 가져갈까?&lt;/h2&gt;&lt;p&gt;ChatGPT, GitHub Copilot 보면서 솔직히 좀 무서웠다.&lt;/p&gt;

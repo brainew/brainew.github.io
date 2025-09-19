@@ -19,6 +19,15 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://brainew.github.io/2025/09/19/backend-developer-roadmap/</loc>
+    
+    <lastmod>2025-09-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   <url>
     <loc>https://brainew.github.io/</loc>
@@ -58,6 +67,20 @@
   
   <url>
     <loc>https://brainew.github.io/tags/%EC%83%9D%EC%A1%B4%EC%A0%84%EB%9E%B5/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/%EB%A1%9C%EB%93%9C%EB%A7%B5/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/%EC%84%B1%EC%9E%A5%EA%B3%84%ED%9A%8D/</loc>
     <lastmod>2025-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -109,6 +132,13 @@
   
   <url>
     <loc>https://brainew.github.io/categories/Career/Backend/</loc>
+    <lastmod>2025-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/categories/Career/Roadmap/</loc>
     <lastmod>2025-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
