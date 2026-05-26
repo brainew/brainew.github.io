@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>브레인의 기술 블로그</title>
+  
+  <subtitle>AI 시대를 살아가는 백엔드/인프라 개발자의 성장 기록</subtitle>
+  <link href="https://brainew.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://brainew.github.io/"/>
+  <updated>2026-05-26T09:31:33.612Z</updated>
+  <id>https://brainew.github.io/</id>
+  
+  <author>
+    <name>brainew</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Jenkins 대기 시간을 약 25초 수준으로 줄이기 위해 Claude Code 스킬을 만든 기록</title>
+    <link href="https://brainew.github.io/2026/05/26/aws-deploy-skill-claude-code-final-bygpt/"/>
+    <id>https://brainew.github.io/2026/05/26/aws-deploy-skill-claude-code-final-bygpt/</id>
+    <published>2026-05-26T06:00:00.000Z</published>
+    <updated>2026-05-26T09:31:33.612Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;대상 독자&lt;/strong&gt;: AWS Lambda와 Step Functions를 직접 배포하는 개발자, 그리고 Claude Code를 실무에 붙여보려는 DevOps&amp;#x2F;인프라 담당자.&lt;br&gt;&lt;strong&gt;전제 조건&lt;/strong&gt;: AWS CLI 설정 및 Claude Code CLI 설치 완료.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;문제는 단순한 빌드 duration이 아니었다. Lambda 1개만 수정해도, 개발자가 체감하는 Jenkins 대기 시간은 생각보다 길었다.&lt;/p&gt;
+&lt;p&gt;Lambda 1개 수정 케이스에서 Jenkins는 Hook 수신부터 배포 완료까지 실측 67초였다. 평균 체감 시간으로 보면 약 2분 44초 수준이었다.&lt;/p&gt;
+&lt;p&gt;aws-deploy 스킬로 바꾼 뒤 같은 케이스에서 변경 감지 → 분석 보고 완료까지는 4.57초가 나왔다. 실제 배포를 끝내기 전, Stage 1 분석부터 Lambda 코드 zip·업로드까지 포함한 체감 총시간은 약 25초 &lt;code&gt;[추정]&lt;/code&gt;로 보는 편이 더 보수적이다.&lt;/p&gt;
+&lt;p&gt;숫자를 바로 한 줄로 묶어 비교하면 오해가 생긴다. &lt;code&gt;4.57초&lt;/code&gt;는 &lt;strong&gt;Stage 1 분석 시간 실측값&lt;/strong&gt;이고, 실사용 체감으로 비교하면 &lt;code&gt;67초 vs 약 25초 [추정]&lt;/code&gt;에 더 가깝다.&lt;/p&gt;
+&lt;p&gt;이 숫자 차이가 이 글의 포인트는 아니다. 더 중요한 건 Jenkins 파이프라인에 없던 &lt;strong&gt;Step Functions definition 교체와 SF version·alias 핀닝&lt;/strong&gt;이 이 스킬에는 들어 있다는 점이다. 속도를 줄인 것보다, &lt;strong&gt;배포가 완결되는 기준 자체를 다시 정의했다&lt;/strong&gt;는 쪽이 더 정확하다.&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="인프라" scheme="https://brainew.github.io/categories/%EC%9D%B8%ED%94%84%EB%9D%BC/"/>
+    
+    
+    <category term="AWS" scheme="https://brainew.github.io/tags/AWS/"/>
+    
+    <category term="Lambda" scheme="https://brainew.github.io/tags/Lambda/"/>
+    
+    <category term="StepFunctions" scheme="https://brainew.github.io/tags/StepFunctions/"/>
+    
+    <category term="ClaudeCode" scheme="https://brainew.github.io/tags/ClaudeCode/"/>
+    
+    <category term="DevOps" scheme="https://brainew.github.io/tags/DevOps/"/>
+    
+  </entry>
+  
+</feed>
