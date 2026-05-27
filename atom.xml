@@ -6,7 +6,7 @@
   <link href="https://brainew.github.io/atom.xml" rel="self"/>
   
   <link href="https://brainew.github.io/"/>
-  <updated>2026-05-27T08:05:29.912Z</updated>
+  <updated>2026-05-27T08:15:19.358Z</updated>
   <id>https://brainew.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://brainew.github.io/2026/05/27/aws-sf-debug-feedback-driven-skill/"/>
     <id>https://brainew.github.io/2026/05/27/aws-sf-debug-feedback-driven-skill/</id>
     <published>2026-05-27T06:00:00.000Z</published>
-    <updated>2026-05-27T08:05:29.912Z</updated>
+    <updated>2026-05-27T08:15:19.358Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;a href=&quot;/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/&quot;&gt;이전 글&lt;/a&gt;에서 &lt;code&gt;aws-deploy&lt;/code&gt; 스킬 사례를 풀었다. 그 글의 핵심은 &lt;em&gt;배포 workflow의 행위 주체 이동&lt;/em&gt;이었다. 이번 글은 그 workflow 안에 &lt;em&gt;운영 패턴이 어떻게 누적되는지&lt;/em&gt;에 대한 기록이다.&lt;/p&gt;
@@ -44,9 +44,9 @@
     
     <category term="AWS" scheme="https://brainew.github.io/tags/AWS/"/>
     
-    <category term="StepFunctions" scheme="https://brainew.github.io/tags/StepFunctions/"/>
-    
     <category term="Lambda" scheme="https://brainew.github.io/tags/Lambda/"/>
+    
+    <category term="StepFunctions" scheme="https://brainew.github.io/tags/StepFunctions/"/>
     
     <category term="ClaudeCode" scheme="https://brainew.github.io/tags/ClaudeCode/"/>
     
@@ -76,9 +76,9 @@
     
     <category term="AWS" scheme="https://brainew.github.io/tags/AWS/"/>
     
-    <category term="StepFunctions" scheme="https://brainew.github.io/tags/StepFunctions/"/>
-    
     <category term="Lambda" scheme="https://brainew.github.io/tags/Lambda/"/>
+    
+    <category term="StepFunctions" scheme="https://brainew.github.io/tags/StepFunctions/"/>
     
     <category term="ClaudeCode" scheme="https://brainew.github.io/tags/ClaudeCode/"/>
     
