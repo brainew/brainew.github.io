@@ -198,7 +198,7 @@
       <span class="post-meta-item-text">작성일</span>
       
 
-      <time title="Post created: 2026-05-27 15:00:00 / Updated at: 15:32:29" itemprop="dateCreated datePublished" datetime="2026-05-27T15:00:00+09:00">2026-05-27</time>
+      <time title="Post created: 2026-05-27 15:00:00 / Updated at: 17:05:29" itemprop="dateCreated datePublished" datetime="2026-05-27T15:00:00+09:00">2026-05-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -220,18 +220,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><a href="/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/">이전 글</a>에서 <code>aws-deploy</code> 스킬 사례를 풀었다. 그 글의 핵심은 <em>배포의 행위 주체가 중앙 시스템에서 작업 맥락으로 옮겨갈 수 있다</em>는 것이었다. 이번 글은 한 단계 더 들어간 이야기다.</p>
+          <p><a href="/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/">이전 글</a>에서 <code>aws-deploy</code> 스킬 사례를 풀었다. 그 글의 핵심은 <em>배포 workflow의 행위 주체 이동</em>이었다. 이번 글은 그 workflow 안에 <em>운영 패턴이 어떻게 누적되는지</em>에 대한 기록이다.</p>
 <p><code>&#123;PROJECT&#125;-ERROR-E005-&#123;ID&#125;-&#123;TIMESTAMP&#125;</code> 같은 형태의 searchKey 패턴이 있다. <strong>내가 만든 인프라다.</strong> LLM이 발명한 게 아니라, SF의 Catch가 잘못 잡혀 에러가 silent로 증발하는 사고를 막으려고 모든 실패 경로에 박아둔 deterministic key다.</p>
-<p>그 위에서 LLM에게 “이 searchKey로 에러 찾아줘”를 반복 던지다 보니, 어느 순간 LLM이 응답 모드를 바꿨다.</p>
+<p>그 위에서 “이 searchKey로 에러 찾아줘”를 반복 던지다 보니, 어느 순간 <em>응답 구조</em>가 달라지기 시작했다.</p>
 <blockquote>
 <p>“에러 찾았고, 이건 이렇게 수정하면 될 것 같은데 진행할까요?”</p>
 </blockquote>
-<p>이전엔 <em>찾기</em>만 했는데 <em>수정 제안</em>까지 하기 시작한 순간이다. 그 변화 + 거기서 자연스럽게 누적된 <em>디버그 → hotfix → 배포</em> 자율 사이클이 본 글의 주제다.</p>
+<p><em>찾기</em>만 하던 흐름이 <em>수정 제안</em>까지 포함하는 흐름으로 확장된 순간이다. 그 확장 + 거기서 누적된 <em>디버그 → hotfix → 배포</em> 자율 사이클이 본 글의 주제다.</p>
 <p>스킬 문서에는 처음부터 이렇게 박혀 있었다.</p>
 <blockquote>
 <p>“이 스킬은 완성형이 아니다 — 사용자 피드백으로 계속 성장한다.”</p>
 </blockquote>
-<p>그 글귀가 어떻게 <em>사실이 됐는지</em>의 기록.</p>
+<p>그 글귀가 어떻게 <em>사실이 됐는지</em>의 기록. *<em>LLM의 진화가 아니라 <em>feedback이 skill 문서와 workflow에 누적된 결과</em>를 다룬다.</em>*</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2026/05/27/aws-sf-debug-feedback-driven-skill/#more" rel="contents">

@@ -6,7 +6,7 @@
   <link href="https://brainew.github.io/atom.xml" rel="self"/>
   
   <link href="https://brainew.github.io/"/>
-  <updated>2026-05-27T06:32:29.858Z</updated>
+  <updated>2026-05-27T08:05:29.912Z</updated>
   <id>https://brainew.github.io/</id>
   
   <author>
@@ -21,21 +21,21 @@
     <link href="https://brainew.github.io/2026/05/27/aws-sf-debug-feedback-driven-skill/"/>
     <id>https://brainew.github.io/2026/05/27/aws-sf-debug-feedback-driven-skill/</id>
     <published>2026-05-27T06:00:00.000Z</published>
-    <updated>2026-05-27T06:32:29.858Z</updated>
+    <updated>2026-05-27T08:05:29.912Z</updated>
     
     
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/&quot;&gt;이전 글&lt;/a&gt;에서 &lt;code&gt;aws-deploy&lt;/code&gt; 스킬 사례를 풀었다. 그 글의 핵심은 &lt;em&gt;배포의 행위 주체가 중앙 시스템에서 작업 맥락으로 옮겨갈 수 있다&lt;/em&gt;는 것이었다. 이번 글은 한 단계 더 들어간 이야기다.&lt;/p&gt;
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/&quot;&gt;이전 글&lt;/a&gt;에서 &lt;code&gt;aws-deploy&lt;/code&gt; 스킬 사례를 풀었다. 그 글의 핵심은 &lt;em&gt;배포 workflow의 행위 주체 이동&lt;/em&gt;이었다. 이번 글은 그 workflow 안에 &lt;em&gt;운영 패턴이 어떻게 누적되는지&lt;/em&gt;에 대한 기록이다.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;&amp;#123;PROJECT&amp;#125;-ERROR-E005-&amp;#123;ID&amp;#125;-&amp;#123;TIMESTAMP&amp;#125;&lt;/code&gt; 같은 형태의 searchKey 패턴이 있다. &lt;strong&gt;내가 만든 인프라다.&lt;/strong&gt; LLM이 발명한 게 아니라, SF의 Catch가 잘못 잡혀 에러가 silent로 증발하는 사고를 막으려고 모든 실패 경로에 박아둔 deterministic key다.&lt;/p&gt;
-&lt;p&gt;그 위에서 LLM에게 “이 searchKey로 에러 찾아줘”를 반복 던지다 보니, 어느 순간 LLM이 응답 모드를 바꿨다.&lt;/p&gt;
+&lt;p&gt;그 위에서 “이 searchKey로 에러 찾아줘”를 반복 던지다 보니, 어느 순간 &lt;em&gt;응답 구조&lt;/em&gt;가 달라지기 시작했다.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;“에러 찾았고, 이건 이렇게 수정하면 될 것 같은데 진행할까요?”&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;이전엔 &lt;em&gt;찾기&lt;/em&gt;만 했는데 &lt;em&gt;수정 제안&lt;/em&gt;까지 하기 시작한 순간이다. 그 변화 + 거기서 자연스럽게 누적된 &lt;em&gt;디버그 → hotfix → 배포&lt;/em&gt; 자율 사이클이 본 글의 주제다.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;찾기&lt;/em&gt;만 하던 흐름이 &lt;em&gt;수정 제안&lt;/em&gt;까지 포함하는 흐름으로 확장된 순간이다. 그 확장 + 거기서 누적된 &lt;em&gt;디버그 → hotfix → 배포&lt;/em&gt; 자율 사이클이 본 글의 주제다.&lt;/p&gt;
 &lt;p&gt;스킬 문서에는 처음부터 이렇게 박혀 있었다.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;“이 스킬은 완성형이 아니다 — 사용자 피드백으로 계속 성장한다.”&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;그 글귀가 어떻게 &lt;em&gt;사실이 됐는지&lt;/em&gt;의 기록.&lt;/p&gt;</summary>
+&lt;p&gt;그 글귀가 어떻게 &lt;em&gt;사실이 됐는지&lt;/em&gt;의 기록. *&lt;em&gt;LLM의 진화가 아니라 &lt;em&gt;feedback이 skill 문서와 workflow에 누적된 결과&lt;/em&gt;를 다룬다.&lt;/em&gt;*&lt;/p&gt;</summary>
     
     
     
@@ -44,9 +44,9 @@
     
     <category term="AWS" scheme="https://brainew.github.io/tags/AWS/"/>
     
-    <category term="Lambda" scheme="https://brainew.github.io/tags/Lambda/"/>
-    
     <category term="StepFunctions" scheme="https://brainew.github.io/tags/StepFunctions/"/>
+    
+    <category term="Lambda" scheme="https://brainew.github.io/tags/Lambda/"/>
     
     <category term="ClaudeCode" scheme="https://brainew.github.io/tags/ClaudeCode/"/>
     
@@ -76,9 +76,9 @@
     
     <category term="AWS" scheme="https://brainew.github.io/tags/AWS/"/>
     
-    <category term="Lambda" scheme="https://brainew.github.io/tags/Lambda/"/>
-    
     <category term="StepFunctions" scheme="https://brainew.github.io/tags/StepFunctions/"/>
+    
+    <category term="Lambda" scheme="https://brainew.github.io/tags/Lambda/"/>
     
     <category term="ClaudeCode" scheme="https://brainew.github.io/tags/ClaudeCode/"/>
     
