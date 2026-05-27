@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"brainew.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.25.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="이전 글에서 aws-deploy 스킬 사례를 풀었다. 그 글의 핵심은 배포의 행위 주체가 중앙 시스템에서 작업 맥락으로 옮겨갈 수 있다는 것이었다. 이번 글은 한 단계 더 들어간 이야기다. &#123;PROJECT&#125;-ERROR-E005-&#123;ID&#125;-&#123;TIMESTAMP&#125; 같은 형태의 searchKey 패턴이 있다. 내">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLM이 &#39;이렇게 수정하실래요?&#39;라고 묻기 시작한 순간 — 사용자 피드백으로 진화한 SF 디버그·배포 자매 스킬">
+<meta property="og:url" content="https://brainew.github.io/2026/05/27/aws-sf-debug-feedback-driven-skill/index.html">
+<meta property="og:site_name" content="브레인의 기술 블로그">
+<meta property="og:description" content="이전 글에서 aws-deploy 스킬 사례를 풀었다. 그 글의 핵심은 배포의 행위 주체가 중앙 시스템에서 작업 맥락으로 옮겨갈 수 있다는 것이었다. 이번 글은 한 단계 더 들어간 이야기다. &#123;PROJECT&#125;-ERROR-E005-&#123;ID&#125;-&#123;TIMESTAMP&#125; 같은 형태의 searchKey 패턴이 있다. 내">
+<meta property="og:locale" content="ko_KR">
+<meta property="article:published_time" content="2026-05-27T06:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-27T06:32:29.858Z">
+<meta property="article:author" content="brainew">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="Lambda">
+<meta property="article:tag" content="StepFunctions">
+<meta property="article:tag" content="ClaudeCode">
+<meta property="article:tag" content="DevOps">
+<meta property="article:tag" content="Observability">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://brainew.github.io/2026/05/27/aws-sf-debug-feedback-driven-skill/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"ko","comments":true,"permalink":"https://brainew.github.io/2026/05/27/aws-sf-debug-feedback-driven-skill/","path":"2026/05/27/aws-sf-debug-feedback-driven-skill/","title":"LLM이 '이렇게 수정하실래요?'라고 묻기 시작한 순간 — 사용자 피드백으로 진화한 SF 디버그·배포 자매 스킬"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>LLM이 '이렇게 수정하실래요?'라고 묻기 시작한 순간 — 사용자 피드백으로 진화한 SF 디버그·배포 자매 스킬 | 브레인의 기술 블로그</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="브레인의 기술 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">브레인의 기술 블로그</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">AI 시대를 살아가는 백엔드/인프라 개발자의 성장 기록</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="검색" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%8B%9C%EC%9E%91%EC%A0%90-%E2%80%94-searchKey%EB%8A%94-LLM%EC%9D%B4-%EC%95%84%EB%8B%8C-%EB%82%B4%EA%B0%80-%EB%A7%8C%EB%93%A0-deterministic-%EC%9D%B8%ED%94%84%EB%9D%BC"><span class="nav-number">1.</span> <span class="nav-text">시작점 — searchKey는 LLM이 아닌 내가 만든 deterministic 인프라</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%B0%98%EB%B3%B5-%E2%80%94-%E2%80%9C%EC%97%90%EB%9F%AC-%EC%B0%BE%EC%95%84%EC%A4%98%E2%80%9D%EB%A5%BC-%EB%8D%98%EC%A7%88%EC%88%98%EB%A1%9D-LLM%EC%9D%B4-%EB%B6%84%EC%84%9D-%EA%B9%8A%EC%9D%B4%C2%B7%EC%88%98%EC%A0%95-%EA%B8%B0%EC%A4%80%EA%B9%8C%EC%A7%80-%ED%95%99%EC%8A%B5"><span class="nav-number">2.</span> <span class="nav-text">반복 — “에러 찾아줘”를 던질수록 LLM이 분석 깊이·수정 기준까지 학습</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%A0%84%ED%99%98%EC%A0%90-%E2%80%94-LLM%EC%9D%B4-%EB%A8%BC%EC%A0%80-%EC%88%98%EC%A0%95-%EC%A0%9C%EC%95%88%EC%9D%84-%EC%8B%9C%EC%9E%91"><span class="nav-number">3.</span> <span class="nav-text">전환점 — LLM이 먼저 수정 제안을 시작</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B7%80%EA%B2%B0-%E2%80%94-skill-%EC%9E%90%EC%B2%B4%EC%97%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%9A%B4%EC%98%81-%ED%8C%A8%ED%84%B4%EC%9D%B4-%EC%83%88%EA%B2%A8%EC%A7%84%EB%8B%A4"><span class="nav-number">4.</span> <span class="nav-text">귀결 — skill 자체에 사용자 운영 패턴이 새겨진다</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%97%B0%EA%B3%84-%E2%80%94-%EC%82%AC%EB%9E%8C-%EB%A8%B8%EC%A7%80%EB%A5%BC-%EA%B0%80%EB%93%9C%EB%A0%88%EC%9D%BC%EB%A1%9C-%EB%91%90%EA%B3%A0-%EC%9E%90%EB%A7%A4-%EC%8A%A4%ED%82%AC%EB%A1%9C-%EC%9D%B8%EA%B3%84"><span class="nav-number">5.</span> <span class="nav-text">연계 — 사람 머지를 가드레일로 두고 자매 스킬로 인계</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B2%80%EC%A6%9D-%E2%80%94-%EC%9E%AC%EA%B2%80%EC%A6%9D%EC%9C%BC%EB%A1%9C-%EC%82%AC%EC%9D%B4%ED%81%B4-%EB%8B%AB%EC%9D%8C"><span class="nav-number">6.</span> <span class="nav-text">검증 — 재검증으로 사이클 닫음</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EB%A7%88%EB%AC%B4%EB%A6%AC"><span class="nav-number">7.</span> <span class="nav-text">마무리</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">brainew</p>
+  <div class="site-description" itemprop="description">백엔드 개발, 인프라 운영, DevOps, Kubernetes, AWS 등 실무 경험과 학습 내용을 공유합니다.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">카테고리</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">태그</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://brainew.github.io/2026/05/27/aws-sf-debug-feedback-driven-skill/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="brainew">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="브레인의 기술 블로그">
+      <meta itemprop="description" content="백엔드 개발, 인프라 운영, DevOps, Kubernetes, AWS 등 실무 경험과 학습 내용을 공유합니다.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="LLM이 &#39;이렇게 수정하실래요?&#39;라고 묻기 시작한 순간 — 사용자 피드백으로 진화한 SF 디버그·배포 자매 스킬 | 브레인의 기술 블로그">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LLM이 '이렇게 수정하실래요?'라고 묻기 시작한 순간 — 사용자 피드백으로 진화한 SF 디버그·배포 자매 스킬
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+      
+
+      <time title="Post created: 2026-05-27 15:00:00 / Updated at: 15:32:29" itemprop="dateCreated datePublished" datetime="2026-05-27T15:00:00+09:00">2026-05-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%EC%9D%B8%ED%94%84%EB%9D%BC/" itemprop="url" rel="index"><span itemprop="name">인프라</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><a href="/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/">이전 글</a>에서 <code>aws-deploy</code> 스킬 사례를 풀었다. 그 글의 핵심은 <em>배포의 행위 주체가 중앙 시스템에서 작업 맥락으로 옮겨갈 수 있다</em>는 것이었다. 이번 글은 한 단계 더 들어간 이야기다.</p>
+<p><code>&#123;PROJECT&#125;-ERROR-E005-&#123;ID&#125;-&#123;TIMESTAMP&#125;</code> 같은 형태의 searchKey 패턴이 있다. <strong>내가 만든 인프라다.</strong> LLM이 발명한 게 아니라, SF의 Catch가 잘못 잡혀 에러가 silent로 증발하는 사고를 막으려고 모든 실패 경로에 박아둔 deterministic key다.</p>
+<p>그 위에서 LLM에게 “이 searchKey로 에러 찾아줘”를 반복 던지다 보니, 어느 순간 LLM이 응답 모드를 바꿨다.</p>
+<blockquote>
+<p>“에러 찾았고, 이건 이렇게 수정하면 될 것 같은데 진행할까요?”</p>
+</blockquote>
+<p>이전엔 <em>찾기</em>만 했는데 <em>수정 제안</em>까지 하기 시작한 순간이다. 그 변화 + 거기서 자연스럽게 누적된 <em>디버그 → hotfix → 배포</em> 자율 사이클이 본 글의 주제다.</p>
+<p>스킬 문서에는 처음부터 이렇게 박혀 있었다.</p>
+<blockquote>
+<p>“이 스킬은 완성형이 아니다 — 사용자 피드백으로 계속 성장한다.”</p>
+</blockquote>
+<p>그 글귀가 어떻게 <em>사실이 됐는지</em>의 기록.</p>
+<span id="more"></span>
+
+<h2 id="시작점-—-searchKey는-LLM이-아닌-내가-만든-deterministic-인프라"><a href="#시작점-—-searchKey는-LLM이-아닌-내가-만든-deterministic-인프라" class="headerlink" title="시작점 — searchKey는 LLM이 아닌 내가 만든 deterministic 인프라"></a>시작점 — searchKey는 LLM이 아닌 내가 만든 deterministic 인프라</h2><p>서버리스 환경에서 SF + Lambda로 서비스 로직을 짜다 보면 한 번쯤 부딪히는 문제가 있다.</p>
+<ul>
+<li>같은 Lambda(재사용 가능)도 어떤 SF에서 호출됐냐에 따라 봐야 하는 부분이 달라진다</li>
+<li>SF의 각 Task Catch가 잘못 잡혀 있으면 실패가 <em>성공처럼</em> 표현되고 증발한다</li>
+</ul>
+<p>이 두 패턴이 누적되면 에러가 일어났는지조차 모르는 silent failure가 쌓인다. 그래서 모든 Lambda 실패 경로에 들어가는 <em>고유 key</em>를 만들었다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;PROJECT&#125;-ERROR-E&#123;CODE&#125;-&#123;ID&#125;-&#123;TIMESTAMP&#125;_&#123;SUFFIX&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&#123;PROJECT&#125;</code>: 어느 프로젝트의 에러인지 (멀티 프로젝트 운영)</li>
+<li><code>E&#123;CODE&#125;</code>: 에러 코드 (E005, E014 등 SF 단계별 책임 코드)</li>
+<li><code>&#123;ID&#125;</code>: 에러 발생 대상 식별자 (job id 또는 input의 핵심 식별자)</li>
+<li><code>&#123;TIMESTAMP&#125;</code>: 발생 시각 (밀리초)</li>
+<li><code>&#123;SUFFIX&#125;</code>: 중복 회피용</li>
+</ul>
+<p>SF Catch 블록 안에서 JSONata로 즉시 발급된다. 한 줄짜리 표현 두 종.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x27;&#123;PROJECT&#125;-ERROR-E005-&#x27; &amp; $states.context.Execution.Name</span><br><span class="line">&#x27;&#123;PROJECT&#125;-ERROR-E005-&#x27; &amp; $string($id) &amp; &#x27;-&#x27; &amp; $string($millis())</span><br></pre></td></tr></table></figure>
+
+<p>이 searchKey가 SNS로 publish되고, 그 메시지가 EventBridge를 거쳐 MongoDB <code>error_logs</code> 컬렉션에 적재된다. CloudWatch Logs에도 같은 키가 박힌다 — Lambda Layer로 공통 logger를 만들어 모든 Lambda가 같은 형태로 찍는다.</p>
+<p>표준 Catch 블록은 이렇게 생겼다 (이름 placeholder 적용).</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;Catch&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ErrorEquals&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;States.ALL&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Next&quot;</span><span class="punctuation">:</span> <span class="string">&quot;SNS Publish (Failed)&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Output&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;% $id %&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;domain&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;% $domain %&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;failCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;E005&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;failReason&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;FUNC_NAME&#125; infrastructure error&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;failedAt&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;% $now() %&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;failedStep&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;FUNC_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;failedLambda&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;PROJECT&#125;-DEV-&#123;DOMAIN&#125;-&#123;FUNC_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;searchKey&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;% &#x27;&#123;PROJECT&#125;-ERROR-E005-&#x27; &amp; $states.context.Execution.Name %&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;errorDetail&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;% $states.errorOutput %&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;executionName&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;% $states.context.Execution.Name %&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;durationSec&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;% ($millis() - $toMillis($states.context.Execution.StartTime)) / 1000 %&#125;&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>핵심은 두 가지.</p>
+<ol>
+<li><strong><code>ErrorEquals: [&quot;States.ALL&quot;]</code></strong> — 어떤 실패든 떨어뜨리지 않는다. silent failure 차단.</li>
+<li><strong><code>searchKey</code>가 메시지 본문에 박힌다</strong> — SNS → EventBridge → DB로 흘러가는 동안 같은 키로 join 가능.</li>
+</ol>
+<p>이게 글 전체의 토대다. LLM이 등장하기 전부터 있었고, LLM이 만든 게 아니다.</p>
+<h2 id="반복-—-“에러-찾아줘”를-던질수록-LLM이-분석-깊이·수정-기준까지-학습"><a href="#반복-—-“에러-찾아줘”를-던질수록-LLM이-분석-깊이·수정-기준까지-학습" class="headerlink" title="반복 — “에러 찾아줘”를 던질수록 LLM이 분석 깊이·수정 기준까지 학습"></a>반복 — “에러 찾아줘”를 던질수록 LLM이 분석 깊이·수정 기준까지 학습</h2><p>처음엔 단순했다. 에러가 SF console에 뜨면 searchKey를 복사해서 LLM에게 던졌다.</p>
+<blockquote>
+<p><code>&#123;PROJECT_A&#125;-ERROR-E005-12345-20260514072830_a1b2c3d4</code> 이거 왜 실패?</p>
+</blockquote>
+<p>LLM이 가는 경로는 매번 비슷했다.</p>
+<table>
+<thead>
+<tr>
+<th>레이어</th>
+<th>무엇을 봤는지</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>L1</td>
+<td><code>describe-execution</code> — status, error, cause</td>
+</tr>
+<tr>
+<td>L2</td>
+<td><code>get-execution-history</code> — 전체 event stream</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>Map state iteration 단위 (Inline)</td>
+</tr>
+<tr>
+<td>L4</td>
+<td>Distributed Map child execution 재귀</td>
+</tr>
+<tr>
+<td>L5</td>
+<td><code>TaskScheduled</code> event의 requestId로 CloudWatch Logs 매칭</td>
+</tr>
+<tr>
+<td>L6</td>
+<td>외부 SaaS 응답 &#x2F; DB &#x2F; SNS &#x2F; S3 실패 분류</td>
+</tr>
+<tr>
+<td>L7</td>
+<td>재처리 (redrive &#x2F; 수동 invoke &#x2F; 캐시 무효화)</td>
+</tr>
+</tbody></table>
+<p>처음엔 <em>내가</em> “L1만 보지 말고 L5까지 가서 Lambda 로그도 봐줘”라고 매번 지시했다. 두세 번 반복하니 LLM이 알아서 L7까지 들어가기 시작했다. 그 다음 세션부터는 “에러 찾아줘”만 던져도 같은 깊이로 갔다.</p>
+<p>CloudWatch에는 공통 Layer의 logger가 구조화된 JSON으로 찍는다.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ProjectLogger</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">options = &#123;&#125;</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> ctx = options.<span class="property">lambdaContext</span> || &#123;&#125;;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_functionName</span> = ctx.<span class="property">functionName</span> || process.<span class="property">env</span>.<span class="property">AWS_LAMBDA_FUNCTION_NAME</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_requestId</span> = ctx.<span class="property">awsRequestId</span> || <span class="string">&#x27;local&#x27;</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_id</span> = options.<span class="property">id</span> || <span class="literal">null</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_executionId</span> = options.<span class="property">executionId</span> || <span class="literal">null</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">_execKey</span> = <span class="variable language_">this</span>.<span class="property">_executionId</span></span><br><span class="line">            ? <span class="string">`&#123;PROJECT&#125;-EXEC-<span class="subst">$&#123;<span class="variable language_">this</span>._executionId&#125;</span>`</span></span><br><span class="line">            : <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">logErrorResponse</span>(<span class="params">message, errorResponse</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">_log</span>(<span class="string">&#x27;ERROR&#x27;</span>, message, &#123;</span><br><span class="line">            <span class="attr">searchKey</span>: errorResponse.<span class="property">searchKey</span>,</span><br><span class="line">            <span class="attr">errorCode</span>: errorResponse.<span class="property">errorCode</span>,</span><br><span class="line">            <span class="attr">severity</span>: errorResponse.<span class="property">severity</span>,</span><br><span class="line">            <span class="attr">retryable</span>: errorResponse.<span class="property">retryable</span>,</span><br><span class="line">            <span class="attr">errorDetail</span>: errorResponse.<span class="property">errorDetail</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">_log</span>(<span class="params">level, message, data</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> entry = &#123;</span><br><span class="line">            level,</span><br><span class="line">            <span class="attr">timestamp</span>: <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">toISOString</span>(),</span><br><span class="line">            <span class="attr">function</span>: <span class="variable language_">this</span>.<span class="property">_functionName</span>,</span><br><span class="line">            <span class="attr">requestId</span>: <span class="variable language_">this</span>.<span class="property">_requestId</span>,</span><br><span class="line">            ...(<span class="variable language_">this</span>.<span class="property">_id</span> != <span class="literal">null</span> &amp;&amp; &#123; <span class="attr">id</span>: <span class="variable language_">this</span>.<span class="property">_id</span> &#125;),</span><br><span class="line">            ...(<span class="variable language_">this</span>.<span class="property">_execKey</span> &amp;&amp; &#123; <span class="attr">execKey</span>: <span class="variable language_">this</span>.<span class="property">_execKey</span> &#125;),</span><br><span class="line">            message,</span><br><span class="line">            ...(data &amp;&amp; &#123; data &#125;)</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(entry));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>CloudWatch에 떨어지는 raw 로그 한 줄.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;level&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ERROR&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;timestamp&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2026-05-14T07:28:30.000Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;function&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;PROJECT&#125;-DEV-&#123;DOMAIN&#125;-&#123;FUNC_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;requestId&quot;</span><span class="punctuation">:</span> <span class="string">&quot;abc123def456&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;12345&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;execKey&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;PROJECT&#125;-EXEC-&#123;EXEC_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Failed processing&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;data&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;searchKey&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;PROJECT&#125;-ERROR-E005-&#123;EXEC_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;errorCode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;E005&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;severity&quot;</span><span class="punctuation">:</span> <span class="string">&quot;critical&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>SF Catch → SNS publish → EventBridge → MongoDB로 흘러가는 메시지는 이런 shape다.</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;Source&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;project&#125;.pipeline&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;DetailType&quot;</span><span class="punctuation">:</span> <span class="string">&quot;MongoDBInsert&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;Detail&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;database&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;project&#125;-dev&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;collection&quot;</span><span class="punctuation">:</span> <span class="string">&quot;error_logs&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;document&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;timestamp&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2026-05-14T07:28:30.000Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;search_key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;PROJECT&#125;-ERROR-E005-12345-20260514072830&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;sf_error_code&quot;</span><span class="punctuation">:</span> <span class="string">&quot;E005&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;error_code&quot;</span><span class="punctuation">:</span> <span class="string">&quot;TIMEOUT&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;error_message&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Lambda execution timeout after 300s&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;severity&quot;</span><span class="punctuation">:</span> <span class="string">&quot;critical&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;function_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&#123;PROJECT&#125;-DEV-&#123;DOMAIN&#125;-&#123;FUNC_NAME&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;id&quot;</span><span class="punctuation">:</span> <span class="number">12345</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;execution_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;execution-uuid-12345&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;lambda_request_id&quot;</span><span class="punctuation">:</span> <span class="string">&quot;request-id-uuid&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>이게 모니터링 대시보드 페이지의 <code>ErrorSearch</code>로 들어온다. 페이지 type 정의 일부.</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">ErrorLogItem</span> &#123;</span><br><span class="line">  <span class="attr">search_key</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">error_code</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">sf_error_code</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">function_name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">id</span>: <span class="built_in">number</span> | <span class="literal">null</span>;</span><br><span class="line">  <span class="attr">severity</span>: <span class="string">&quot;critical&quot;</span> | <span class="string">&quot;high&quot;</span> | <span class="string">&quot;medium&quot;</span> | <span class="string">&quot;low&quot;</span>;</span><br><span class="line">  <span class="attr">timestamp</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">error_message</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">error_detail</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">failed_step</span>: <span class="built_in">string</span> | <span class="literal">null</span>;</span><br><span class="line">  <span class="attr">execution_name</span>: <span class="built_in">string</span> | <span class="literal">null</span>;</span><br><span class="line">  <span class="attr">lambda_request_id</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="attr">restart_params</span>?: &#123; <span class="attr">description</span>: <span class="built_in">string</span> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>searchKey</code> 하나로 SF console &#x2F; CloudWatch Logs &#x2F; MongoDB &#x2F; 대시보드 <em>네 시스템</em>을 join 한다. LLM이 분석할 때 이 key 하나로 4-system 추적이 가능하다 — 가능성을 <em>내가</em> 만들어 둔 거고, LLM은 그걸 사용할 뿐.</p>
+<p>다만 사용하는 깊이를 반복하면서 <em>내 분석 패턴</em>이 LLM 응답에 새겨졌다.</p>
+<h2 id="전환점-—-LLM이-먼저-수정-제안을-시작"><a href="#전환점-—-LLM이-먼저-수정-제안을-시작" class="headerlink" title="전환점 — LLM이 먼저 수정 제안을 시작"></a>전환점 — LLM이 먼저 수정 제안을 시작</h2><p>어느 시점부터 응답이 길어졌다.</p>
+<p>L1~L7 분석 후 “근본 원인: Lambda <code>&#123;FUNC_NAME&#125;</code> 내부의 <code>index.mjs:26</code>에서 강제 throw + 상위 SF의 Catch가 <code>[States.ALL → Success]</code>로 잡혀 있어 silent failure 발생”까지 가는 건 같았다. 거기서 끝났던 게, 어느 순간 한 단락이 더 붙기 시작했다.</p>
+<blockquote>
+<p>“수정 방향: Lambda의 강제 throw 제거 + SF Catch를 SNS Publish (Fail) 경로로 변경 + <code>failedLambda</code> 필드 PROFILE → DEV 정정. hotfix 브랜치 <code>hotfix/E005-&#123;FUNC_NAME&#125;-throw-restore</code> 만들어서 진행할까요?”</p>
+</blockquote>
+<p>내가 명시적으로 가르친 적이 없는 흐름이다. <em>내가 직접 hotfix를 짜왔던 과거 세션들</em>에서 LLM이 패턴을 학습한 것에 더 가깝다. 정확히 어디서 학습했는지는 [추정]이지만, 결과는 명확하다.</p>
+<p><code>/Users/brainew/Documents/dev/ai/agent_team/aws-sf-debug/integration.md</code>에는 그 흐름이 표준화되어 박혔다 — <code>E1~E9</code>라는 사이클로.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[aws-sf-debug 영역 — 자동]</span><br><span class="line">E1. 에러 분석 (L1~L7)</span><br><span class="line">E2. 근본 원인 확정 + 사실/추정 분리 보고</span><br><span class="line">E3. 수정 결정 + 영향 평가</span><br><span class="line"></span><br><span class="line">[git 작업 — 자동, 단 PR 작성까지만]</span><br><span class="line">E4. hotfix 브랜치 생성</span><br><span class="line">E5. 코드 수정 + commit (conventional commits)</span><br><span class="line">E6. push + PR 생성</span><br><span class="line"></span><br><span class="line">[STOP — 사용자 직접 트리거 대기]</span><br><span class="line">E7. PR 리뷰/머지는 사용자가 직접 수행</span><br><span class="line"></span><br><span class="line">[aws-deploy 영역 — 트리거 수신 후]</span><br><span class="line">E8. checkout develop + pull → 머지 커밋 해시 확인</span><br><span class="line">    → aws-deploy 케이스 판별 → 5단계 체인</span><br><span class="line"></span><br><span class="line">[재검증 — 선택]</span><br><span class="line">E9. 새 트리거 또는 redrive로 동작 확인</span><br></pre></td></tr></table></figure>
+
+<p>자율 진행은 <strong>E6까지</strong>. E7에서 STOP. PR 머지는 <em>내가</em> 명시 트리거(<code>머지했어</code>)를 던지기 전까지 다음 단계로 안 간다.</p>
+<p>이 가드레일은 처음부터 있었던 게 아니다. 과거에 “계속 진행해” 같은 막연한 명령에서 LLM이 PR을 자동 머지해 사고가 났던 기록이 메모리에 남아 있고, 그 사고 후에 <code>feedback_pr-merge-user-only</code>라는 규칙이 박혔다. 그 규칙이 다시 본 스킬의 <code>integration.md</code>에 흡수됐다.</p>
+<p>즉, <em>내가 한 번 실패한 패턴</em>이 스킬에 가드레일로 들어왔다. 이 자체가 “사용자 피드백으로 진화한다”의 한 사례다.</p>
+<h2 id="귀결-—-skill-자체에-사용자-운영-패턴이-새겨진다"><a href="#귀결-—-skill-자체에-사용자-운영-패턴이-새겨진다" class="headerlink" title="귀결 — skill 자체에 사용자 운영 패턴이 새겨진다"></a>귀결 — skill 자체에 사용자 운영 패턴이 새겨진다</h2><p>스킬 문서 (<code>SKILL.md</code>)에는 별도 섹션이 박혀 있다.</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 이 스킬은 완성형이 아님 (Feedback-Driven Evolution)</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 사용자에 특화된다: 현재 담긴 레이어 구조(L1~L7), 외부 의존 분류, 휴리스틱은</span><br><span class="line">  한 사용자와의 실제 에러 분석 경험에서 뽑은 것.</span><br><span class="line"><span class="bullet">-</span> 피드백으로 주요 문장이 수정된다: 사용자가 &quot;이 레이어 분석이 부족하다&quot;,</span><br><span class="line">  &quot;이 외부 서비스도 추가&quot;, &quot;이 휴리스틱은 틀렸다&quot;고 말하면 SKILL.md와</span><br><span class="line">  하위 문서의 구체 문장·CLI 명령·체크리스트까지 적극적으로 수정.</span><br><span class="line"><span class="bullet">-</span> 새 장애 패턴은 즉시 heuristics.md에 반영</span><br><span class="line"><span class="bullet">-</span> 사용자가 &quot;이 트리거 문구도 추가&quot; 하면 description에 즉시 추가</span><br></pre></td></tr></table></figure>
+
+<p>추상적 글귀가 아니라 <em>실제로</em> 그렇게 돌아간다. 사례 하나.</p>
+<p>2026-05-14 검증 세션에서 한 SF가 silent failure 패턴을 보였다 — 한 Task의 Catch가 <code>[States.ALL → Success]</code>로 잡혀 있어 실패가 통과로 표시됐다. hotfix로 그 1개를 정정하고 끝낼 수도 있었는데, 내가 한 줄 던졌다.</p>
+<blockquote>
+<p>“{PROJECT_B}도 모든 task의 에러에서 Catch로 빠지고 fail SNS 발행되게 되어있는지 체크해와”</p>
+</blockquote>
+<p>LLM이 ASL 9개 State를 전수 점검하고, 누락된 9개 State에 <em>동일 패턴 Catch</em>를 일괄 보강한 PR을 만들었다. 단순 1건 hotfix가 <em>운영 안전 정비</em>로 확장됐다.</p>
+<p>이때 만든 9개 State 매핑.</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>failCode</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>{FUNC_NAME_1}</td>
+<td>E005</td>
+</tr>
+<tr>
+<td>{FUNC_NAME_2}</td>
+<td>E006</td>
+</tr>
+<tr>
+<td>{FUNC_NAME_3}</td>
+<td>E011</td>
+</tr>
+<tr>
+<td>{FUNC_NAME_4}</td>
+<td>E012</td>
+</tr>
+<tr>
+<td>Map: invoke {FUNC_NAME_5}</td>
+<td>E008</td>
+</tr>
+<tr>
+<td>{FUNC_NAME_6}</td>
+<td>E012</td>
+</tr>
+<tr>
+<td>Map: invoke {FUNC_NAME_7}</td>
+<td>E008</td>
+</tr>
+<tr>
+<td>{FUNC_NAME_8}</td>
+<td>E009</td>
+</tr>
+<tr>
+<td>{FUNC_NAME_9}</td>
+<td>E010</td>
+</tr>
+</tbody></table>
+<p>모든 Catch 공통: <code>ErrorEquals: [States.ALL]</code>, <code>Next: SNS Publish (Fail)</code>, <code>searchKey: &#39;&#123;PROJECT&#125;-ERROR-E***-&#39; &amp; $string($id) &amp; &#39;-&#39; &amp; $string($millis())</code>.</p>
+<p>이 사례가 끝나고, 비슷한 *”silent Catch가 다른 SF에도 박혀 있을 수 있다”*는 학습이 <code>heuristics.md</code>에 추가됐다. 다음 세션의 첫 SF describe에서 LLM이 알아서 Catch 패턴을 체크하기 시작했다.</p>
+<p>이게 글이 말하려는 핵심이다. <strong>LLM이 새 능력을 갖춘 게 아니라, 내 운영 결정 기준이 스킬 문서에 누적되어 다음 세션이 그걸 첫눈에 알아본다.</strong></p>
+<h2 id="연계-—-사람-머지를-가드레일로-두고-자매-스킬로-인계"><a href="#연계-—-사람-머지를-가드레일로-두고-자매-스킬로-인계" class="headerlink" title="연계 — 사람 머지를 가드레일로 두고 자매 스킬로 인계"></a>연계 — 사람 머지를 가드레일로 두고 자매 스킬로 인계</h2><p>E1~E9 흐름의 시각화.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[에러 발생] </span><br><span class="line">   ↓</span><br><span class="line">[사용자] &quot;에러 분석하고 hotfix 만들어 &#123;PROJECT_A&#125;-ERROR-E005-&#123;ID&#125;-&#123;TS&#125;_&#123;SUFFIX&#125;&quot;</span><br><span class="line">   ↓</span><br><span class="line">[aws-sf-debug 자동]</span><br><span class="line">   E1~E3. L1~L7 분석 → 근본 원인 + 수정 결정</span><br><span class="line">   E4. hotfix/&lt;error-code&gt;-&lt;short-desc&gt; 브랜치 생성</span><br><span class="line">   E5. 코드 수정 + commit (conventional commits)</span><br><span class="line">   E6. push + PR 생성 (PR 본문에 deploy scope 사전 표기)</span><br><span class="line">   ↓</span><br><span class="line">[STOP] — 사용자 직접 머지</span><br><span class="line">   ↓</span><br><span class="line">[사용자] &quot;hotfix 머지 끝났어&quot;</span><br><span class="line">   ↓</span><br><span class="line">[aws-deploy 자동]</span><br><span class="line">   E8. checkout develop + pull → 머지 커밋 해시 확인</span><br><span class="line">       → 다중 PR 누적 체크</span><br><span class="line">       → 케이스 판별 (A: Lambda만 / B: Lambda + SF 핀닝 / C: Layer → Lambda → SF / D: SF만)</span><br><span class="line">       → 5단계 체인 (publish → alias → SF update → SF publish → SF alias)</span><br><span class="line">   ↓</span><br><span class="line">[재검증 — 선택]</span><br><span class="line">   E9. 새 트리거 또는 manual replay로 동작 확인</span><br></pre></td></tr></table></figure>
+
+<p>여기서 <em>행위 주체</em>는 두 번 바뀐다.</p>
+<ul>
+<li>E1~E6: LLM (분석 + hotfix 작성)</li>
+<li>E7: 사람 (PR 리뷰 + 머지)</li>
+<li>E8: LLM (배포 자동화)</li>
+</ul>
+<p>사람이 끼는 자리는 <strong>운영 변경이 시작되는 정확한 순간</strong>이다. 그 자리에 가드레일이 있는 한, 자율 사이클은 운영 위험과 분리된다.</p>
+<p>자매 스킬로 넘어가는 트리거도 자연어 한 줄이다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;머지했어&quot;</span><br><span class="line">&quot;hotfix 머지 끝났어&quot;</span><br><span class="line">&quot;머지 끝났어, 배포 진행해&quot;</span><br></pre></td></tr></table></figure>
+
+<p>이전 글에서 다룬 <code>aws-deploy</code>의 <a href="/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/#Stage-1-%EB%B3%80%EA%B2%BD-%EA%B0%90%EC%A7%80-shell">Stage 1 변경 감지</a>가 이 시점에서 발동된다. <code>git diff</code> 결과 + 케이스 자동 분류 → 5단계 체인.</p>
+<h2 id="검증-—-재검증으로-사이클-닫음"><a href="#검증-—-재검증으로-사이클-닫음" class="headerlink" title="검증 — 재검증으로 사이클 닫음"></a>검증 — 재검증으로 사이클 닫음</h2><p>분석·hotfix·배포가 끝나면 <em>실제로 동작이 정정됐는지</em> 확인하는 단계가 남는다. <code>aws-sf-debug</code> 스킬로 다시 진입해서 manual replay로 새 트리거 1건을 실 운영 활성 alias에 흘려본다.</p>
+<p>2026-05-14 양 프로젝트 검증 결과 (사내 검증 기록 인용).</p>
+<table>
+<thead>
+<tr>
+<th>프로젝트</th>
+<th>execution</th>
+<th>소요</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>{PROJECT_A} (활성 alias → 새 SF version)</td>
+<td><code>&#123;EXEC_NAME_1&#125;</code></td>
+<td><strong>8분 28초</strong></td>
+<td>SUCCEEDED</td>
+</tr>
+<tr>
+<td>{PROJECT_B} (활성 alias → 새 SF version)</td>
+<td><code>&#123;EXEC_NAME_2&#125;</code></td>
+<td><strong>6분 35초</strong></td>
+<td>SUCCEEDED</td>
+</tr>
+</tbody></table>
+<p>측정 방법: SF console의 execution duration 직접 인용. manual replay는 <code>start-execution</code> API 직접 호출 + input은 운영 실 트래픽 인용. 표본은 양 프로젝트 각 1건 — 통계적 검증이 아니라 <em>사이클 동작 확인</em>이다.</p>
+<p>검증 자체는 ErrorSearch 대시보드에서 <code>searchKey</code> deep link로 재진입 가능하다.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/error-search?searchKey=&#123;PROJECT&#125;-ERROR-E005-&#123;ID&#125;-&#123;TIMESTAMP&#125;_&#123;SUFFIX&#125;</span><br></pre></td></tr></table></figure>
+
+<p>같은 키로 SF execution + Lambda Logs + DB + 대시보드 4-system이 다시 join된다. 사이클 끝.</p>
+<p>같은 검증 세션에서 만들어진 누적 PR 7개의 상태.</p>
+<table>
+<thead>
+<tr>
+<th>PR 종류</th>
+<th>머지</th>
+<th>목적</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>강제 후퇴 setup (양 프로젝트 2개)</td>
+<td>MERGED</td>
+<td>검증용 silent failure 유도</td>
+</tr>
+<tr>
+<td>임의 복원 PR 1개</td>
+<td><strong>DECLINED</strong></td>
+<td>사용자 명시 동의 없이 작성 — 거부됨</td>
+</tr>
+<tr>
+<td>자동 hotfix PR (LLM 작성, 양 프로젝트 2개)</td>
+<td>MERGED</td>
+<td>E5에서 자동 생성, E7에서 사람 머지</td>
+</tr>
+<tr>
+<td>운영 안전 보강 PR 1개</td>
+<td>MERGED</td>
+<td>9개 State 정공 Catch 일괄</td>
+</tr>
+</tbody></table>
+<p><strong>DECLINED PR이 1개 있다.</strong> LLM이 사용자 명시 동의 없이 임의 복원 PR을 만들었고, 그게 거부됐다. 그 사건 이후 <code>feedback_pr-merge-user-only</code>가 <code>integration.md</code>에 더 강하게 박혔다. 가드레일 자체도 사용자 피드백으로 진화한다.</p>
+<h2 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h2><p>이전 글이 <em>행위 주체가 중앙 시스템에서 작업 맥락으로 옮겨간다</em>였다면, 이번 글은 한 단계 더 들어간 이야기다.</p>
+<blockquote>
+<p><strong>LLM이 새 능력을 갖춘 게 아니다. 내가 반복한 분석 깊이와 수정 결정 기준이 스킬 문서에 새겨졌고, 다음 세션은 그걸 첫눈에 알아볼 뿐이다.</strong></p>
+</blockquote>
+<p>스킬은 도구가 아니라 <em>내 운영 패턴이 누적되는 자리</em>다. searchKey 같은 deterministic 인프라가 아래에 깔려 있고, 그 위에서 자연어 트리거 한 줄로 분석·hotfix·배포가 자율 사이클이 된다. 사람이 끼는 자리는 <em>운영 변경이 시작되는 정확한 순간</em> — PR 머지. 그 가드레일 한 점이 있는 한, 자율 사이클은 운영 위험과 분리된다.</p>
+<p>이건 단순히 LLM 시대 DevOps 사례가 아니다. <em>내가 한 번 실패하거나 사용자가 한 번 지적한 패턴이 스킬에 박혀 다음 세션의 첫 줄부터 적용된다</em>는 점이 더 깊은 변화다. 도구가 아니라 <em>내 운영 패턴 자체가 인프라화</em>되고 있다.</p>
+<p><code>aws-sf-debug</code>와 <code>aws-deploy</code>는 나한테 그 첫 사례였다. 다음 사례는 다른 영역에서 또 일어날 거고, 그때는 이 두 스킬 사이의 인계 패턴(<code>feedback_pr-merge-user-only</code>, <code>feedback_deploy-scope-pr-workflow</code>)이 그 영역에도 옮겨갈 거다. 사용자 피드백으로 진화한다는 글귀의 <em>진짜 의미</em>는 거기에 있다.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AWS/" rel="tag"># AWS</a>
+              <a href="/tags/Lambda/" rel="tag"># Lambda</a>
+              <a href="/tags/StepFunctions/" rel="tag"># StepFunctions</a>
+              <a href="/tags/ClaudeCode/" rel="tag"># ClaudeCode</a>
+              <a href="/tags/DevOps/" rel="tag"># DevOps</a>
+              <a href="/tags/Observability/" rel="tag"># Observability</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/" rel="prev" title="AI 이후, 배포는 CI 밖으로 나오기 시작했다 — Claude Code aws-deploy 스킬 사례">
+                  <i class="fa fa-angle-left"></i> AI 이후, 배포는 CI 밖으로 나오기 시작했다 — Claude Code aws-deploy 스킬 사례
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">brainew</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

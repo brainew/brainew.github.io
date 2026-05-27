@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://brainew.github.io/2026/05/27/aws-sf-debug-feedback-driven-skill/</loc>
+    
+    <lastmod>2026-05-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://brainew.github.io/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/</loc>
     
     <lastmod>2026-05-27</lastmod>
@@ -49,6 +58,13 @@
   
   <url>
     <loc>https://brainew.github.io/tags/DevOps/</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://brainew.github.io/tags/Observability/</loc>
     <lastmod>2026-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
