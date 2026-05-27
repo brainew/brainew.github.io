@@ -6,7 +6,7 @@
   <link href="https://brainew.github.io/atom.xml" rel="self"/>
   
   <link href="https://brainew.github.io/"/>
-  <updated>2026-05-27T09:27:37.698Z</updated>
+  <updated>2026-05-27T09:50:44.302Z</updated>
   <id>https://brainew.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://brainew.github.io/2026/05/27/agent-team-migration-kit-feedback-as-infrastructure/"/>
     <id>https://brainew.github.io/2026/05/27/agent-team-migration-kit-feedback-as-infrastructure/</id>
     <published>2026-05-27T09:00:00.000Z</published>
-    <updated>2026-05-27T09:27:37.698Z</updated>
+    <updated>2026-05-27T09:50:44.302Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;a href=&quot;/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/&quot;&gt;1편&lt;/a&gt;은 &lt;em&gt;workflow 행위 주체 이동&lt;/em&gt;, &lt;a href=&quot;/2026/05/27/aws-sf-debug-feedback-driven-skill/&quot;&gt;2편&lt;/a&gt;은 &lt;em&gt;skill에 운영 패턴이 누적되는 과정&lt;/em&gt;이었다. 이번 글은 한 단계 더 나아간다 — &lt;strong&gt;누적된 패턴이 마이그레이션 가능한 단위가 되는 사례&lt;/strong&gt;.&lt;/p&gt;
