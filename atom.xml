@@ -6,7 +6,7 @@
   <link href="https://brainew.github.io/atom.xml" rel="self"/>
   
   <link href="https://brainew.github.io/"/>
-  <updated>2026-05-27T08:15:19.358Z</updated>
+  <updated>2026-05-27T09:27:37.698Z</updated>
   <id>https://brainew.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>feedback이 인프라가 되고, 인프라는 마이그레이션 단위가 된다 — agent team 키트 v2.2 사례</title>
+    <link href="https://brainew.github.io/2026/05/27/agent-team-migration-kit-feedback-as-infrastructure/"/>
+    <id>https://brainew.github.io/2026/05/27/agent-team-migration-kit-feedback-as-infrastructure/</id>
+    <published>2026-05-27T09:00:00.000Z</published>
+    <updated>2026-05-27T09:27:37.698Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/&quot;&gt;1편&lt;/a&gt;은 &lt;em&gt;workflow 행위 주체 이동&lt;/em&gt;, &lt;a href=&quot;/2026/05/27/aws-sf-debug-feedback-driven-skill/&quot;&gt;2편&lt;/a&gt;은 &lt;em&gt;skill에 운영 패턴이 누적되는 과정&lt;/em&gt;이었다. 이번 글은 한 단계 더 나아간다 — &lt;strong&gt;누적된 패턴이 마이그레이션 가능한 단위가 되는 사례&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;키트 한 묶음(&lt;code&gt;agent-team-migration-kit v2.2&lt;/code&gt;, 41 파일, 364KB)을 다른 머신으로 옮기고 install 스크립트 두세 줄을 돌리면 &lt;em&gt;동일한 작업 환경&lt;/em&gt;이 재현된다. 튜토리얼이 아니라 &lt;em&gt;install 스크립트&lt;/em&gt;가 인계 매체다.&lt;/p&gt;
+&lt;p&gt;이 글은 그 키트가 어떻게 v1 → v2.2로 자라났는지, &lt;em&gt;어느 사용자 피드백이 키트 어디에 박혔는지&lt;/em&gt;의 기록.&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="인프라" scheme="https://brainew.github.io/categories/%EC%9D%B8%ED%94%84%EB%9D%BC/"/>
+    
+    
+    <category term="ClaudeCode" scheme="https://brainew.github.io/tags/ClaudeCode/"/>
+    
+    <category term="AgentTeams" scheme="https://brainew.github.io/tags/AgentTeams/"/>
+    
+    <category term="DevOps" scheme="https://brainew.github.io/tags/DevOps/"/>
+    
+    <category term="Workflow" scheme="https://brainew.github.io/tags/Workflow/"/>
+    
+    <category term="Automation" scheme="https://brainew.github.io/tags/Automation/"/>
+    
+  </entry>
   
   <entry>
     <title>LLM이 &#39;이렇게 수정하실래요?&#39;라고 묻기 시작한 순간 — 사용자 피드백으로 진화한 SF 디버그·배포 자매 스킬</title>
@@ -42,15 +71,15 @@
     <category term="인프라" scheme="https://brainew.github.io/categories/%EC%9D%B8%ED%94%84%EB%9D%BC/"/>
     
     
+    <category term="ClaudeCode" scheme="https://brainew.github.io/tags/ClaudeCode/"/>
+    
+    <category term="DevOps" scheme="https://brainew.github.io/tags/DevOps/"/>
+    
     <category term="AWS" scheme="https://brainew.github.io/tags/AWS/"/>
     
     <category term="Lambda" scheme="https://brainew.github.io/tags/Lambda/"/>
     
     <category term="StepFunctions" scheme="https://brainew.github.io/tags/StepFunctions/"/>
-    
-    <category term="ClaudeCode" scheme="https://brainew.github.io/tags/ClaudeCode/"/>
-    
-    <category term="DevOps" scheme="https://brainew.github.io/tags/DevOps/"/>
     
     <category term="Observability" scheme="https://brainew.github.io/tags/Observability/"/>
     
@@ -74,15 +103,15 @@
     <category term="인프라" scheme="https://brainew.github.io/categories/%EC%9D%B8%ED%94%84%EB%9D%BC/"/>
     
     
+    <category term="ClaudeCode" scheme="https://brainew.github.io/tags/ClaudeCode/"/>
+    
+    <category term="DevOps" scheme="https://brainew.github.io/tags/DevOps/"/>
+    
     <category term="AWS" scheme="https://brainew.github.io/tags/AWS/"/>
     
     <category term="Lambda" scheme="https://brainew.github.io/tags/Lambda/"/>
     
     <category term="StepFunctions" scheme="https://brainew.github.io/tags/StepFunctions/"/>
-    
-    <category term="ClaudeCode" scheme="https://brainew.github.io/tags/ClaudeCode/"/>
-    
-    <category term="DevOps" scheme="https://brainew.github.io/tags/DevOps/"/>
     
   </entry>
   
