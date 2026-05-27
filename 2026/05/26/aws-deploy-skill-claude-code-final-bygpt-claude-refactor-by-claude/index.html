@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://brainew.github.io/images/aws-deploy-skill/dry-run-result.png">
 <meta property="og:image" content="https://brainew.github.io/images/aws-deploy-skill/metrics-comparison.png">
 <meta property="article:published_time" content="2026-05-26T06:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-27T05:40:00.973Z">
+<meta property="article:modified_time" content="2026-05-27T05:46:34.954Z">
 <meta property="article:author" content="brainew">
 <meta property="article:tag" content="AWS">
 <meta property="article:tag" content="Lambda">
@@ -217,7 +217,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Updated at: 2026-05-27 14:40:00" itemprop="dateModified" datetime="2026-05-27T14:40:00+09:00">2026-05-27</time>
+      <time title="Updated at: 2026-05-27 14:46:34" itemprop="dateModified" datetime="2026-05-27T14:46:34+09:00">2026-05-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -426,7 +426,7 @@
 <h3 id="alias는-같은-배포-안에서-하나로-통일된다"><a href="#alias는-같은-배포-안에서-하나로-통일된다" class="headerlink" title="alias는 같은 배포 안에서 하나로 통일된다"></a>alias는 같은 배포 안에서 하나로 통일된다</h3><p>alias 형식은 <code>&#123;ENV&#125;-&#123;YYYYMMDD&#125;-&#123;SEQ&#125;</code> (예: <code>DEV-20260427-1</code>). 배포 시작 시 <em>오늘자 alias 최댓값 + 1</em>로 SEQ를 한 번만 결정하고, 그 배포에 포함된 모든 Lambda와 SF가 같은 SEQ를 공유한다.</p>
 <p>실측 예: 2026-04-27 DEV 환경 13개 Lambda × 3개 SF 일괄 배포에서 모두 <code>DEV-20260427-1</code> 하나로 통일됐다. 사후에 “이 배포가 뭘 건드렸는지” 추적할 때 alias 하나만 보면 끝난다.</p>
 <blockquote>
-<p>GLLO 프로젝트는 다르다. SF alias는 <code>0.0.x</code> semver만 쓴다 (백엔드가 alias 이름으로 SF를 직접 호출하기 때문). 같은 스킬 코어 위에서 이런 차이는 <code>projects/&#123;서비스&#125;.md</code>가 흡수한다.</p>
+<p>다른 프로젝트(이하 프로젝트 B)는 다르다. SF alias는 <code>0.0.x</code> semver만 쓴다 (백엔드가 alias 이름으로 SF를 직접 호출하기 때문). 같은 스킬 코어 위에서 이런 차이는 <code>projects/&#123;서비스&#125;.md</code>가 흡수한다.</p>
 </blockquote>
 <h3 id="dry-run-vs-write-—-사전-검증으로-분리"><a href="#dry-run-vs-write-—-사전-검증으로-분리" class="headerlink" title="dry-run vs write — 사전 검증으로 분리"></a>dry-run vs write — 사전 검증으로 분리</h3><p>자연어로 “배포준비” 한 줄 던졌을 때 바로 운영 리소스를 건드리면 안 된다. <code>aws-deploy</code>는 두 모드로 명시 분리돼 있다.</p>
 <ul>
@@ -438,7 +438,7 @@
 <blockquote>
 <p>이 모드 분리가 없으면 Skill을 운영 도구로 쓸 수 없다. 자연어 → 즉시 write 구조는 한 번이라도 사고나면 다시 못 쓴다.</p>
 </blockquote>
-<h3 id="프로젝트-규칙-—-projects-서비스-md"><a href="#프로젝트-규칙-—-projects-서비스-md" class="headerlink" title="프로젝트 규칙 — projects/{서비스}.md"></a>프로젝트 규칙 — <code>projects/&#123;서비스&#125;.md</code></h3><p>다른 프로젝트에 붙일 때는 스킬 코어를 안 건드리고 파일 하나만 추가한다. 현재 MOA와 GLLO 두 프로젝트가 같은 스킬 코어를 공유하고, 차이만 각자의 파일에 들어간다.</p>
+<h3 id="프로젝트-규칙-—-projects-서비스-md"><a href="#프로젝트-규칙-—-projects-서비스-md" class="headerlink" title="프로젝트 규칙 — projects/{서비스}.md"></a>프로젝트 규칙 — <code>projects/&#123;서비스&#125;.md</code></h3><p>다른 프로젝트에 붙일 때는 스킬 코어를 안 건드리고 파일 하나만 추가한다. 현재 두 개 프로젝트(A·B)가 같은 스킬 코어를 공유하고, 차이만 각자의 파일에 들어간다.</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># projects/&#123;서비스명&#125;.md</span></span><br><span class="line"><span class="attr">AWS Profile  :</span> &#123;<span class="string">aws-profile</span>&#125;</span><br><span class="line"><span class="attr">Account ID   :</span> &#123;<span class="string">AWS_ACCOUNT_ID</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="string">브랜치</span> <span class="string">→</span> <span class="string">환경:</span></span><br><span class="line">  <span class="string">develop</span> <span class="string">→</span> <span class="string">DEV</span></span><br><span class="line">  <span class="string">stg</span>     <span class="string">→</span> <span class="string">STG</span></span><br><span class="line">  <span class="string">real</span>    <span class="string">→</span> <span class="string">REAL</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Lambda alias :</span> <span class="string">DEV-&#123;YYYYMMDD&#125;-&#123;SEQ&#125;</span></span><br><span class="line"><span class="attr">SF alias     :</span> <span class="string">x.x.x</span>   <span class="comment"># 백엔드가 alias 이름으로 직접 호출</span></span><br><span class="line"></span><br><span class="line"><span class="string">배포</span> <span class="string">제외:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="string">서비스명</span>&#125;<span class="string">-PROFILE-*-router</span></span><br></pre></td></tr></table></figure>
 
 <p>가치는 재사용성보다 <strong>머릿속 예외와 명명 규칙이 파일로 빠져나오는 순간 개인 루틴이 팀이 읽을 수 있는 절차가 된다</strong>는 점이다.</p>

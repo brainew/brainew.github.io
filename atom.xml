@@ -6,7 +6,7 @@
   <link href="https://brainew.github.io/atom.xml" rel="self"/>
   
   <link href="https://brainew.github.io/"/>
-  <updated>2026-05-27T05:40:00.973Z</updated>
+  <updated>2026-05-27T05:46:34.954Z</updated>
   <id>https://brainew.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://brainew.github.io/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/"/>
     <id>https://brainew.github.io/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/</id>
     <published>2026-05-26T06:00:00.000Z</published>
-    <updated>2026-05-27T05:40:00.973Z</updated>
+    <updated>2026-05-27T05:46:34.954Z</updated>
     
     
     <summary type="html">&lt;p&gt;기존에는 Jenkins Pipeline Job으로 Lambda를 배포했다. develop 브랜치에 PR이 머지되면 Hook으로 Pipeline이 트리거되고, 변경 감지 → 메타데이터·Layer 수집 → zip → &lt;code&gt;update-function-code&lt;/code&gt; → version publish → alias 갱신까지 한 번에 처리한다.&lt;/p&gt;
