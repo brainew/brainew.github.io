@@ -6,7 +6,7 @@
   <link href="https://brainew.github.io/atom.xml" rel="self"/>
   
   <link href="https://brainew.github.io/"/>
-  <updated>2026-05-27T04:34:46.522Z</updated>
+  <updated>2026-05-27T05:04:29.223Z</updated>
   <id>https://brainew.github.io/</id>
   
   <author>
@@ -17,19 +17,17 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Jenkins 배포 호흡이 길어졌을 때, Claude Code aws-deploy 스킬로 바꾼 이유</title>
-    <link href="https://brainew.github.io/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude/"/>
-    <id>https://brainew.github.io/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude/</id>
+    <title>AI 이후, 배포는 CI 밖으로 나오기 시작했다 — Claude Code aws-deploy 스킬 사례</title>
+    <link href="https://brainew.github.io/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/"/>
+    <id>https://brainew.github.io/2026/05/26/aws-deploy-skill-claude-code-final-bygpt-claude-refactor-by-claude/</id>
     <published>2026-05-26T06:00:00.000Z</published>
-    <updated>2026-05-27T04:34:46.522Z</updated>
+    <updated>2026-05-27T05:04:29.223Z</updated>
     
     
-    <summary type="html">&lt;p&gt;기존에는 Jenkins Pipeline Job으로 Lambda를 배포했다.&lt;/p&gt;
-&lt;p&gt;develop 브랜치에 PR merge가 끝나면 Hook으로 Jenkins Pipeline Job이 실행된다. Pipeline 안에서는 hook 기반으로 감지된 branch를 확인하고, &lt;code&gt;git checkout .&lt;/code&gt;으로 반영되지 않은 변경사항을 초기화하고, 배포 대상 branch를 checkout 해서 최신화한다. 그 다음 merge 이전 HEAD 이후 변경사항을 확인하고, 변경된 Lambda 함수를 찾고, 해당 함수 배포에 필요한 기존 메타데이터와 Layer 정보를 수집한 뒤 zip으로 압축해서 배포한다.&lt;/p&gt;
-&lt;p&gt;이 방식은 틀린 방식이 아니었다. 오히려 많은 Lambda 함수를 한 저장소에서 관리하는 상황에서는 꽤 현실적인 방식이었다.&lt;/p&gt;
-&lt;p&gt;그런데 관리하는 Lambda 함수 수가 많아지면 이야기가 조금 달라진다. Lambda 하나만 수정해도 git에서 관리되는 Lambda 전체를 확인하고, 변경된 함수인지 판단하고, 기존 설정과 Layer 정보를 다시 모으는 시간이 들어간다. 빌드 자체보다도 merge 이후 deploy까지 이어지는 호흡이 길어졌다.&lt;/p&gt;
-&lt;p&gt;AI를 이용해서 개발 속도가 빨라지기 시작하니 이 차이가 더 크게 느껴졌다. 코드 수정, 리뷰, merge까지의 속도는 빨라졌는데, 그 다음 deploy까지의 감각은 예전 Jenkins 호흡 그대로였다.&lt;/p&gt;
-&lt;p&gt;그때부터 이 방식이 지금 작업 흐름과는 조금 안 맞는다는 생각이 들었다.&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;기존에는 Jenkins Pipeline Job으로 Lambda를 배포했다. develop 브랜치에 PR이 머지되면 Hook으로 Pipeline이 트리거되고, 변경 감지 → 메타데이터·Layer 수집 → zip → &lt;code&gt;update-function-code&lt;/code&gt; → version publish → alias 갱신까지 한 번에 처리한다.&lt;/p&gt;
+&lt;p&gt;이 구조 자체에는 문제가 없었다. 문제는 “구조의 위치”였다.&lt;/p&gt;
+&lt;p&gt;AI를 붙여 코딩 호흡이 빨라진 뒤로, 머지에서 배포까지의 대기 시간이 작업 흐름 밖으로 떨어져 나와 있는 게 거슬리기 시작했다. &lt;strong&gt;개발은 내 손 안에서 일어나는 일이 됐는데, 배포만 여전히 “중앙 시스템이 처리하는 일”이었다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;이 글은 그 간극을 메우려고 만든 Claude Code 스킬 &lt;code&gt;aws-deploy&lt;/code&gt;의 사례 기록이다. Jenkins 비판이 목적이 아니다. &lt;em&gt;AI 시대에 배포의 행위 주체가 어디에 있어야 하는가&lt;/em&gt;에 대한 답을 사례 하나로 풀어보려는 글이다.&lt;/p&gt;</summary>
     
     
     
